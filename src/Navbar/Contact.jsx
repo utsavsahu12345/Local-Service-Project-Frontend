@@ -1,7 +1,7 @@
 import React from "react";
 import "./Contact.css";
 import contacthero from "../assets/ContactHero.png";
-import contactabout from "../assets/ContactAbout.jpg";
+import contactabout from "../assets/contactabout.jpg";
 
 function Contact() {
   return (
