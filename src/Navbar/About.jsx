@@ -1,9 +1,9 @@
 import React from "react";
 import "./About.css"; // Assuming you have some CSS for styling
-import Experienced from "../assets/experienced.jpg";
-import Quality from "../assets/Quality.jpg";
-import Transparent from "../assets/transparent.jpg";
-import Customer from "../assets/customer.jpg";
+import experienced from "../assets/experienced.jpg";
+import quality from "../assets/Quality.jpg";
+import transparent from "../assets/transparent.jpg";
+import customer from "../assets/customer.jpg";
 import { Link } from "react-router-dom";
 
 // Reusable component for Mission/Vision boxes (kept inside the file as requested)
@@ -21,25 +21,25 @@ const benefits = [
     title: "Experienced Professionals",
     description:
       "Our team consists of highly skilled and experienced technicians who are experts in their fields.",
-    imageUrl: Experienced,
+    imageUrl: experienced,
   },
   {
     title: "Quality Workmanship",
     description:
       "We use only the best materials and employ proven techniques to ensure lasting results.",
-    imageUrl: Quality,
+    imageUrl: quality,
   },
   {
     title: "Transparent Pricing",
     description:
       "We provide clear and upfront pricing with no hidden fees, so you know exactly what to expect.",
-    imageUrl: Transparent,
+    imageUrl: transparent,
   },
   {
     title: "Customer Satisfaction",
     description:
       "Your satisfaction is our top priority. We go the extra mile to ensure you're happy with our services.",
-    imageUrl: Customer,
+    imageUrl: customer,
   },
 ];
 
