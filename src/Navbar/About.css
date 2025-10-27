@@ -1,0 +1,329 @@
+/* ---------- Hero Section ---------- */
+.hero-section {
+  background-image: url('../assets/about.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+  text-align: center;
+  position: relative;
+  z-index: 0;
+}
+
+/* Dark overlay */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Main Content ---------- */
+.content-box {
+  padding: 3rem 0;
+  background-color: #f8f9fa;
+}
+
+/* ---------- Why Choose Us ---------- */
+.why-choose-us-container {
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.why-choose-us-header {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.why-choose-us-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.why-choose-us-header p {
+  font-size: 18px;
+  color: #666;
+}
+
+/* ---------- Benefits Grid ---------- */
+.benefits-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual Card Styling */
+.benefit-card {
+  flex: 1;
+  min-width: 250px;
+  max-width: 280px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Image */
+.card-image-wrapper {
+  height: 120px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background-color: #eee;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f0f0f0;
+}
+
+.card-image-actual {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.benefit-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.benefit-card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ---------- CTA Section ---------- */
+.cta-section {
+  max-width: 1200px;
+  margin: 50px auto 0;
+  padding: 50px 30px;
+  text-align: center;
+  border-radius: 12px;
+  background-color: #e0f7fa;
+  border: 1px solid #b2ebf2;
+}
+
+.cta-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.cta-section p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-button {
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Footer ---------- */
+.about-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 15px 30px;
+  background-color: #ececec;
+  text-align: center;
+}
+
+.footer-links a {
+  text-decoration: none;
+  padding: 0 10px;
+  color: #333;
+}
+
+.footer-links a:hover {
+  color: #007bff;
+}
+
+/* ---------- Responsive Design ---------- */
+
+/* Tablets (<= 992px) */
+@media (max-width: 992px) {
+  .hero-section {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .benefits-grid {
+    gap: 20px;
+  }
+
+  .cta-section {
+    padding: 40px 20px;
+  }
+
+  .cta-section h2 {
+    font-size: 24px;
+  }
+
+  .cta-section p {
+    font-size: 15px;
+  }
+}
+
+/* Mobiles (<= 768px) */
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+
+  .content-box {
+    padding: 2rem 1rem;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .col-md-7,
+  .col-md-5 {
+    width: 100%;
+    padding: 0 !important;
+  }
+
+  .benefits-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .benefit-card {
+    max-width: 90%;
+  }
+
+  .why-choose-us-header h2 {
+    font-size: 26px;
+  }
+
+  .why-choose-us-header p {
+    font-size: 15px;
+  }
+
+  .cta-section {
+    margin: 30px 10px;
+  }
+
+  .cta-section h2 {
+    font-size: 22px;
+  }
+
+  .cta-button {
+    font-size: 16px;
+    padding: 10px 24px;
+  }
+
+  .about-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Small Phones (<= 480px) */
+@media (max-width: 480px) {
+  .hero-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .benefit-card h3 {
+    font-size: 18px;
+  }
+
+  .benefit-card p {
+    font-size: 13px;
+  }
+
+  .cta-section h2 {
+    font-size: 20px;
+  }
+
+  .cta-section p {
+    font-size: 14px;
+  }
+
+  .cta-button {
+    font-size: 15px;
+    padding: 10px 22px;
+  }
+
+  .footer-links a {
+    display: block;
+    padding: 5px 0;
+  }
+}

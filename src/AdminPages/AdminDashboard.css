@@ -1,0 +1,59 @@
+.admindashboard {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+.admindashboardbox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.box {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.box h3 {
+  font-size: 1.2rem;
+  color: #374151;
+  margin-bottom: 10px;
+}
+
+.box h2 {
+  font-size: 2rem;
+  color: #2563eb;
+  margin: 0;
+}
+.admindashboardheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.admindashboardheader h4 {
+  font-size: 1.5rem;
+  color: #111827;
+  margin: 0;
+}
+.admindashboardheader button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}

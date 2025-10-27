@@ -1,0 +1,138 @@
+/* ===== Container ===== */
+.userContainer {
+  padding: 20px;
+  background: #f5f6fa;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== Header Section ===== */
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #333;
+}
+
+.header p {
+  color: #777;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* ===== Table Wrapper ===== */
+.tableWrapper {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Table Styling ===== */
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.userTable th,
+.userTable td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 14px;
+}
+
+.userTable th {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+}
+
+.userTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* ===== Status Badge ===== */
+.status {
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status.active {
+  background-color: #28a745;
+}
+
+.status.blocked {
+  background-color: #dc3545;
+}
+
+/* ===== Buttons ===== */
+.blockButton {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.blockButton:hover {
+  background-color: #d9363e;
+}
+
+.unblockButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.unblockButton:hover {
+  background-color: #388e3c;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .header {
+    text-align: center;
+  }
+
+  .userTable th,
+  .userTable td {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .userTable th,
+  .userTable td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .blockButton,
+  .unblockButton {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .status {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+}

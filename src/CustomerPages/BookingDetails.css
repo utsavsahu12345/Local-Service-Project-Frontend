@@ -1,0 +1,178 @@
+.booking-details-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #f5f6f7;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.details-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.service-image {
+  width: 260px;
+  height: 190px;
+  margin-top: 20px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.service-info {
+  flex: 1;
+  min-width: 260px;
+}
+
+.service-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.service-desc {
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.provider-line {
+  margin-bottom: 4px;
+}
+
+.price-line {
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.price-green {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.price-red {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.divider {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+.customer-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #111827;
+}
+
+.customer-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.customer-info p {
+  margin: 4px 0;
+}
+
+.notes {
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 10px;
+  color: #333;
+  font-size: 15px;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.status.pending {
+  background-color: #fbbf24;
+  color: #000;
+}
+
+/* Confirm - blue */
+.status.confirm {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* Completed - green */
+.status.completed {
+  background-color: #22c55e;
+  color: white;
+}
+
+/* Rejected - orange/red tone */
+.status.rejected {
+  background-color: #f97316;
+  color: white;
+}
+
+/* Cancelled - red */
+.status.cancel {
+  background-color: #ef4444;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ef4444;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cancel-btn:hover {
+  background-color: #dc2626;
+}
+
+.back-btn-bottom {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.back-btn-bottom:hover {
+  background-color: #1d4ed8;
+}

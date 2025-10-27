@@ -1,0 +1,26 @@
+.block-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8fafc;
+  font-family: "Inter", sans-serif;
+}
+
+.block-card {
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.block-card h1 {
+  color: #dc2626;
+  margin-bottom: 10px;
+}
+
+.block-card p {
+  color: #374151;
+  font-size: 16px;
+}

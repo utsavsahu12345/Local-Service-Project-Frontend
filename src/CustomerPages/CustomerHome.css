@@ -1,0 +1,259 @@
+/* Base Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: #f6faf7;
+}
+
+/* Hero Section */
+.hero {
+  background: url("../assets/hero.png") no-repeat center center/cover;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+.overlay {
+  background: rgba(0, 0, 0, 0.280);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 20px;
+  animation: fadeInUp 1.2s ease-out;
+}
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  font-weight: 800;
+}
+.hero-content p {
+  font-size: 1.3rem;
+}
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.explore-btn {
+  margin-top: 30px;
+  padding: 14px 38px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #4a6cf7 0%, #6ed6ff 100%);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.explore-btn:hover {
+  transform: scale(1.08);
+}
+
+/* Layout */
+.home-container {
+  min-height: 100vh;
+}
+.home-flex {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 32px;
+  padding: 32px 0;
+}
+
+/* Filters */
+.home-filters {
+  background: #f3f7ef;
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 260px;
+  box-shadow: 0 2px 12px #0001;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+.home-filters h3 {
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 24px;
+  color: #222;
+}
+.filter-group {
+  margin-bottom: 24px;
+}
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #dbe6d6;
+  font-size: 15px;
+}
+
+/* Main Content */
+.home-main {
+  flex-grow: 1;
+}
+.home-main h1 {
+  font-weight: 700;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+.sub-text {
+  font-size: 17px;
+  color: #4caf50;
+  margin-bottom: 18px;
+}
+
+/* Card Grid */
+.home-main .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+}
+
+/* Card Columns — widened for better visual balance */
+.col {
+  flex: 1 1 calc(40% - 28px);
+  max-width: 500px;
+}
+
+/* Card */
+.service-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px #0002;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.serviceimg {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+.card-body {
+  padding: 20px;
+}
+.price-badge {
+  background: #e0f7fa;
+  color: #00796b;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 10px;
+  float: right;
+}
+.service-title {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0;
+}
+.name-exp {
+  color: rgb(101, 188, 253);
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 6px;
+}
+.location {
+  color: #888;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.experience {
+  color: #888;
+  font-size: 15px;
+}
+.name {
+  color: #888;
+  font-size: 15px;
+  margin-top: 20px;
+}
+.btn-group {
+  display: flex;
+  gap: 12px;
+}
+.book-btn {
+  background: rgb(101, 188, 253);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  flex: 1;
+}
+.details-btn {
+  background: #f5f5f5;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  flex: 1;
+}
+
+/* No Services Message */
+.no-services-message {
+  text-align: center;
+  color: #777;
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+/* Responsive Layouts */
+
+/* <=1100px => 2 cards */
+@media (max-width: 1100px) {
+  .col {
+    flex: 1 1 calc(45% - 24px);
+  }
+}
+
+/* <=768px => 2 cards */
+@media (max-width: 768px) {
+  .col {
+    flex: 1 1 calc(48% - 24px);
+  }
+  .home-flex {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .home-filters {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+/* <=576px => 1 card */
+@media (max-width: 576px) {
+  .col {
+    flex: 1 1 100%;
+  }
+  .btn-group {
+    flex-direction: column;
+  }
+  .serviceimg {
+    height: 160px;
+  }
+}

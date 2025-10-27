@@ -1,0 +1,199 @@
+/* Outer Container */
+.service-add-container {
+  min-height: 100vh;
+  background: #f7f8fa;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Card Wrapper */
+.service-add-card {
+  background: #fff;
+  width: 100%;
+  max-width: 850px;
+  border-radius: 12px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.service-add-card h2 {
+  text-align: center;
+  margin-bottom: 35px;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+/* --------------------- */
+/* Grid Fields (2-column layout) */
+/* --------------------- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px 30px;
+  margin-bottom: 20px;
+}
+
+/* 3-column layout for compact row */
+.form-grid.compact-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px 25px;
+  margin-bottom: 25px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------- */
+/* Inputs & Labels */
+/* --------------------- */
+label {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.read-only {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+/* --------------------- */
+/* Description Area */
+/* --------------------- */
+.short-description-area {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.short-description-area textarea {
+  min-height: 80px;
+  resize: none;
+}
+
+.word-count-label {
+  position: absolute;
+  bottom: -18px;
+  right: 0;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* --------------------- */
+/* Upload Box */
+/* --------------------- */
+.work-image-area {
+  margin: 25px 0;
+}
+
+.upload-box {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  background-color: #f9fafb;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.upload-box:hover {
+  border-color: #3b82f6;
+}
+
+.upload-text strong {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.file-info,
+.file-name {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.file-name {
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+/* --------------------- */
+/* Form Action Buttons */
+/* --------------------- */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid #dc2626;
+  color: #dc2626;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-btn:hover {
+  background-color: #fee2e2;
+}
+
+.add-service-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-service-btn:hover {
+  background-color: #059669;
+}
+
+@media (max-width: 768px) {
+  .form-grid,
+  .form-grid.compact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cancel-btn,
+  .add-service-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

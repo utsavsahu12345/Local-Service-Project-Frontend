@@ -1,0 +1,70 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import RoleSelection from "./Navbar/RoleSelection";
+import CustomerLogin from "./Login/CustomerLogin";
+import CustomerHome from "./CustomerPages/CustomerHome";
+import CustomerNavbar from "./Navbar/CustomerNavbar";
+import ServiceLogin from "./Login/ServiceLogin";
+import ServiceAddFrist from "./ServicePages/ServiceAddFrist";
+import ServiceDashboard from "./ServicePages/ServiceDashboard";
+import CustomerBooking from "./CustomerPages/CustomerBookings";
+import ServiceNavbar from "./Navbar/ServiceNavbar";
+import SelectService from "./CustomerPages/SelectService";
+import AdminLogin from "./Login/AdminLogin";
+import AdminDashboard from "./AdminPages/AdminDashboard";
+import AdminNavbar from "./Navbar/AdminNavbar";
+import ServiceAdd from "./ServicePages/ServiceAdd";
+import ViewDetails from "./CustomerPages/ViewDetails";
+import About from "./Navbar/About";
+import RoleNavbar from "./Navbar/RoleNavbar";
+import Contact from "./Navbar/Contact";
+import BookingDetails from "./CustomerPages/BookingDetails";
+import ServiceBooking from "./ServicePages/ServiceBooking";
+import CustomerFeedback from "./CustomerPages/CustomerFeedback";
+import ServiceFeedback from "./ServicePages/ServiceFeedback";
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+
+        <Route path="/customer/login" element={<CustomerLogin />} />
+        <Route path="/service/login" element={<ServiceLogin />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/service/add/frist" element={<ServiceAddFrist />} />
+
+        <Route path="/" element={<RoleNavbar/>}>
+          <Route path="/" element={<RoleSelection />} /> 
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+
+        <Route path="/admin" element={<AdminNavbar />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+        </Route>
+
+        <Route path="/customer" element={<CustomerNavbar />}>
+          <Route path="home" element={<CustomerHome />} />
+          <Route path="booking" element={<CustomerBooking />} />
+          <Route path="feedback" element={<CustomerFeedback />} />
+          <Route path="select/service" element={<SelectService />} />
+          <Route path="view/details" element={<ViewDetails />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="booking/details" element={<BookingDetails />} />
+        </Route>
+
+        <Route path="/service" element={<ServiceNavbar />}>
+          <Route path="dashboard" element={<ServiceDashboard />} />
+          <Route path="add" element={<ServiceAdd />} />
+          <Route path="booking" element={<ServiceBooking />} />
+          <Route path="feedback" element={<ServiceFeedback />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+        
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;

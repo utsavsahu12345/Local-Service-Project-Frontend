@@ -1,0 +1,367 @@
+.app-container {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ---------------- Hero Section ---------------- */
+.hero-section {
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.hero-button {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 24px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.hero-button:hover {
+  background-color: #0056b3;
+}
+
+/* ---------------- About Us Section ---------------- */
+.about-us-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 10%;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.about-content {
+  flex: 1;
+  min-width: 280px;
+}
+
+.about-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.about-text {
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.learn-more-link {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.learn-more-link:hover {
+  text-decoration: underline;
+}
+
+.about-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 280px;
+}
+
+.about-image {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ---------------- Why Choose Us ---------------- */
+.contact-page {
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  background: #f9fafc;
+}
+
+.choose-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.choose-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.choose-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------------- Testimonials ---------------- */
+.testimonials-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.testimonials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.testimonial-card {
+  background: #fff;
+  width: 280px;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.testimonial-header img {
+  border-radius: 50%;
+}
+
+.stars {
+  color: #f7b500;
+  margin: 8px 0;
+}
+
+/* ---------------- Contact Section ---------------- */
+.contact-section {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  gap: 40px;
+  background: #fff;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.contact-info {
+  max-width: 300px;
+}
+
+.contact-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-info li {
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-info i {
+  color: #007bff;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 320px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+.contact-form button {
+  background: #0a9ef5;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover {
+  background: #0078c8;
+}
+
+/* ---------------- Footer ---------------- */
+.contact-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 15px 30px;
+  background-color: #ececec;
+  text-align: center;
+}
+
+.footer-a a {
+  text-decoration: none;
+  padding: 0 10px;
+  color: #333;
+}
+
+.footer-a a:hover {
+  color: #007bff;
+}
+
+/* ---------------- Responsive Design ---------------- */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .about-us-section {
+    padding: 40px 5%;
+  }
+
+  .contact-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-info {
+    max-width: 100%;
+  }
+
+  .contact-form {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 300px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .about-us-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-content {
+    order: 2;
+  }
+
+  .about-image-container {
+    order: 1;
+  }
+
+  .choose-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .testimonials {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .testimonial-card {
+    width: 90%;
+  }
+
+  .contact-section {
+    padding: 30px 15px;
+  }
+
+  .contact-form {
+    width: 90%;
+  }
+
+  .contact-footer {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .hero-button {
+    padding: 8px 18px;
+    font-size: 0.9rem;
+  }
+
+  .about-title {
+    font-size: 1.5rem;
+  }
+
+  .about-text {
+    font-size: 0.95rem;
+  }
+
+  .choose-card {
+    width: 80%;
+    justify-content: center;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.9rem;
+  }
+
+  .contact-footer {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}

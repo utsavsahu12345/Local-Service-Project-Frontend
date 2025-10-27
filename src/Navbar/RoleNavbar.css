@@ -1,0 +1,35 @@
+/* Remove center alignment globally */
+.role-container {
+  text-align: left !important;
+}
+
+/* Make sure navbar behaves normally */
+.role-container .navbar {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+/* Navbar items stay left */
+.role-container .navbar-nav {
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+/* Remove underline from links */
+.role-container .nav-link {
+  text-decoration: none !important;
+  color: #000 !important;
+}
+
+/* Add hover color */
+.role-container .nav-link:hover {
+  color: #007bff !important;
+}
+
+/* Make login button stick to right */
+.role-container .navbar-collapse {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}

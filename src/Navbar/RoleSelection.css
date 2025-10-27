@@ -1,0 +1,309 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+.appcontainer {
+  text-align: center;
+}
+
+.section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.btnprimary {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btnprimary:hover {
+  background-color: #0056b3;
+}
+
+.herosection button {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.herosection button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 86, 179, 0.4);
+}
+
+.herosection button:active {
+  transform: scale(0.97);
+}
+
+/* --- Header & Hero --- */
+.mainheader {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.387), rgba(0, 0, 0, 0.679)),url("../assets/unnamed.png"); 
+  background-size: cover;
+  background-position: top;
+  color: white;
+  height: 80vh; /* 🔥 Increased image height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.herosection h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.herosubtitle {
+  font-size: 1.2rem;
+}
+
+/* --- Services --- */
+.servicesgrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.servicecard {
+  width: 180px;
+  padding: 30px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.servicecard:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.iconplaceholder {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+/* --- How It Works --- */
+.howitworks {
+  background-color: #f4f7f6;
+}
+.stepscontainer {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.stepcard {
+  width: 280px;
+  text-align: left;
+}
+.stepnumbercircle {
+  width: 40px;
+  height: 40px;
+  background: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* --- Testimonials --- */
+.testimonialssection {
+  background: white;
+}
+.testimonialsgrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+.testimonialcard {
+  width: 300px;
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.customerinfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #007bff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.customername {
+  font-weight: bold;
+}
+.reviewtext {
+  font-style: italic;
+  color: #555;
+}
+
+/* --- CTA --- */
+.ctasection {
+  background: #e9ecef;
+  padding: 60px 20px;
+}
+
+/* --- Footer --- */
+.mainfooter {
+  background: #343a40;
+  color: white;
+  text-align: left;
+  padding: 40px 50px 20px;
+}
+.footercontent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footercol {
+  flex: 1;
+  min-width: 200px;
+}
+.sociallinks a {
+  display: inline-block;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  margin-right: 8px;
+  transition: 0.3s;
+}
+.sociallinks a:hover {
+  background: #007bff;
+  border-color: #007bff;
+}
+.copyright {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #adb5bd;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .herosection h1 {
+    font-size: 2.2rem;
+  }
+  .servicesgrid,
+  .stepscontainer,
+  .testimonialsgrid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .servicecard,
+  .testimonialcard {
+    width: 90%;
+  }
+}
+.roles {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+}
+
+.rolecard {
+  width: 250px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #333;
+  text-align: center;
+  padding: 25px 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.rolecard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  background-color: #e9f2ff;
+}
+
+.roleicon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.rolecard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: #007bff;
+}
+
+.rolecard p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .roles {
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 10px;
+  }
+
+  .rolecard {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .roleicon {
+    font-size: 2rem;
+  }
+}
+.popular {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2rem;
+  color: #007bff;
+}
+.how {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2rem;
+  color: #007bff;
+}
+.what {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2rem;
+  color: #007bff;
+}

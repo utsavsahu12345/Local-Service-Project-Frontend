@@ -1,0 +1,96 @@
+.footer {
+  background: #f2f2f2; /* dark background */
+  color: #000000;      /* light text */
+  padding: 2.5rem 1rem 1rem;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+  padding-bottom: 1.25rem;
+}
+
+.footer-brand h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.2px;
+}
+
+.footer-tagline {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #000000;
+}
+
+/* Quick links */
+.footer-links h5,
+.footer-contact h5,
+.footer-social h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin: 0.35rem 0;
+}
+
+.footer-links a {
+  color: #000000;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Contact */
+.footer-contact p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* Social icons */
+.social-icons {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 1.15rem;
+}
+
+.social-icons i {
+  opacity: 0.95;
+}
+
+/* Bottom bar */
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.313);
+  padding: 0.9rem 0 0;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Responsive smaller screens */
+@media (max-width: 600px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
