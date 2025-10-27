@@ -1,6 +1,6 @@
 import React from "react";
 import "./About.css"; // Assuming you have some CSS for styling
-import experienced from "../assets/experienced.jpg";
+import experienced from "../assets/Experienced.jpg";
 import quality from "../assets/Quality.jpg";
 import transparent from "../assets/transparent.jpg";
 import customer from "../assets/customer.jpg";

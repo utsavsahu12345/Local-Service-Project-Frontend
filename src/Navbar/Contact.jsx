@@ -1,7 +1,7 @@
 import React from "react";
 import "./Contact.css";
-import ContactHero from "../assets/ContactHero.png";
-import ContactAbout from "../assets/ContactAbout.jpg";
+import contacthero from "../assets/ContactHero.png";
+import contactabout from "../assets/ContactAbout.jpg";
 
 function Contact() {
   return (
@@ -9,7 +9,7 @@ function Contact() {
       {/* 1. Hero Section */}
       <div
         className="hero-section"
-        style={{ backgroundImage: `url(${ContactHero})` }}
+        style={{ backgroundImage: `url(${contacthero})` }}
       >
         <div className="hero-overlay">
           <h1 className="hero-title">Your Home, Our Expertise</h1>
@@ -37,7 +37,7 @@ function Contact() {
         </div>
         <div className="about-image-container">
           <img
-            src={ContactAbout}
+            src={contactabout}
             alt="HandyHome Team"
             className="about-image"
           />
