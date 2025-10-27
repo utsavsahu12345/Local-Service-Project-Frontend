@@ -2,8 +2,8 @@ import React from "react";
 import "./About.css"; // Assuming you have some CSS for styling
 import experienced from "../assets/Experienced.jpg";
 import quality from "../assets/Quality.jpg";
-import transparent from "../assets/transparent.jpg";
-import customer from "../assets/customer.jpg";
+import transparent from "../assets/Transparent.jpg";
+import customer from "../assets/Customer.jpg";
 import { Link } from "react-router-dom";
 
 // Reusable component for Mission/Vision boxes (kept inside the file as requested)
