@@ -4,7 +4,7 @@ import "./CustomerService.css";
 
 export default function CustomerLogin() {
   const [isLogin, setIsLogin] = useState(true);
-    const url = import.meta.env.VITE_SERVER_URL;
+  const url = import.meta.env.VITE_SERVER_URL;
   const [signupData, setSignupData] = useState({
     fullName: "",
     username: "",
@@ -50,9 +50,7 @@ export default function CustomerLogin() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${url}/customer/verify-otp`,
-        otpData,
+      const res = await axios.post(`${url}/customer/verify-otp`,otpData,
         { withCredentials: true } // important for cookie to be set
       );
 
