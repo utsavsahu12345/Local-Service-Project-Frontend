@@ -9,6 +9,8 @@ export default function ServiceLogin() {
     username: "",
     email: "",
     password: "",
+    gender: "",
+    location: "",
   });
   const [loginData, setLoginData] = useState({
     username: "",
@@ -17,8 +19,9 @@ export default function ServiceLogin() {
   const [otpData, setOtpData] = useState({ userId: "", otp: "" });
   const [showOtp, setShowOtp] = useState(false);
   const [loading, setLoading] = useState(false);
-    const url = import.meta.env.VITE_SERVER_URL;
+  const url = import.meta.env.VITE_SERVER_URL;
 
+  // -------------------- HANDLERS --------------------
   const handleSignupChange = (e) =>
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
   const handleLoginChange = (e) =>
@@ -31,11 +34,9 @@ export default function ServiceLogin() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(
-        `${url}/service/signup`,
-        signupData,
-        { withCredentials: true } // important for sending/receiving cookies
-      );
+      const res = await axios.post(`${url}/service/signup`, signupData, {
+        withCredentials: true,
+      });
       alert(res.data.message);
       setOtpData({ ...otpData, userId: res.data.userId });
       setShowOtp(true);
@@ -50,16 +51,10 @@ export default function ServiceLogin() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${url}/service/verify-otp`,
-        otpData,
-        { withCredentials: true } // important for cookie to be set
-      );
-
+      const res = await axios.post(`${url}/service/verify-otp`, otpData, {
+        withCredentials: true,
+      });
       alert(res.data.message);
-
-      // ✅ no localStorage needed; cookie handles authentication
-      // Redirect to home page
       window.location.href = "/service/dashboard";
     } catch (err) {
       alert(err.response?.data?.message || "Invalid OTP");
@@ -70,21 +65,17 @@ export default function ServiceLogin() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${url}/service/login`,
-        loginData,
-        { withCredentials: true } // cookie will be set from backend
-      );
-
+      const res = await axios.post(`${url}/service/login`, loginData, {
+        withCredentials: true,
+      });
       alert(res.data.message);
-
-      // ✅ no localStorage needed
       window.location.href = "/service/dashboard";
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
   };
 
+  // -------------------- UI --------------------
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -92,6 +83,7 @@ export default function ServiceLogin() {
           {showOtp ? "Verify OTP" : isLogin ? "Login" : "Signup"}
         </h2>
 
+        {/* OTP Verification */}
         {showOtp ? (
           <form onSubmit={handleVerifyOtp} className="auth-form">
             <label className="auth-label">
@@ -109,6 +101,7 @@ export default function ServiceLogin() {
             </button>
           </form>
         ) : isLogin ? (
+          // -------------------- LOGIN FORM --------------------
           <form onSubmit={handleLoginSubmit} className="auth-form">
             <label className="auth-label">
               Username or Email
@@ -151,6 +144,7 @@ export default function ServiceLogin() {
             </p>
           </form>
         ) : (
+          // -------------------- SIGNUP FORM --------------------
           <form onSubmit={handleSignupSubmit} className="auth-form">
             <label className="auth-label">
               Full name
@@ -194,6 +188,33 @@ export default function ServiceLogin() {
                 onChange={handleSignupChange}
                 className="auth-input"
                 placeholder="Choose a password"
+              />
+            </label>
+
+            {/* 🟢 GENDER FIELD */}
+            <label className="auth-label">
+              Gender
+              <select
+                name="gender"
+                value={signupData.gender}
+                onChange={handleSignupChange}
+                className="auth-input"
+              >
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </label>
+
+            {/* 🟢 LOCATION FIELD */}
+            <label className="auth-label">
+              Location
+              <input
+                name="location"
+                value={signupData.location}
+                onChange={handleSignupChange}
+                className="auth-input"
+                placeholder="Enter your city or area"
               />
             </label>
 
