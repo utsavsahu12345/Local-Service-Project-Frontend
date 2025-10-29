@@ -102,7 +102,7 @@ const FeedbackPage = () => {
   };
 
   return (
-    <div className="feedbackWrapper">
+    <div className="feedbackWrapper container">
       <h2 className="pageTitle">Give Feedback on Past Bookings</h2>
       <p className="pageSubtitle">
         We value your feedback. Please share your experience with our service providers.

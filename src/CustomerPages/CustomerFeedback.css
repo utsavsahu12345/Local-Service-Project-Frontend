@@ -41,6 +41,7 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 200px; /* ensures consistent height */
 }
 
 .feedbackCard:hover {
@@ -48,16 +49,28 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
+/* 🖼 Fixed Image Height - Full Card Height Cover */
 .providerImg {
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: 100%;
   object-fit: cover;
   border-radius: 16px 0 0 16px;
+  flex-shrink: 0;
+  background: #f3f4f6;
 }
 
 .cardContent {
   flex: 1;
   padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .cardContent h3 {
@@ -72,10 +85,13 @@
   font-size: 0.95rem;
 }
 
-.price {
-  color: #007bff;
+.priceTag {
+  background-color: #007bff;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 8px;
   font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
 }
 
 .detailRow {
@@ -94,6 +110,7 @@
   cursor: pointer;
   margin-top: 10px;
   transition: 0.3s;
+  width: fit-content;
 }
 
 .feedbackBtn:hover {
@@ -210,31 +227,11 @@
 
   .providerImg {
     width: 100%;
-    height: 200px;
+    height: 240px;
     border-radius: 16px 16px 0 0;
   }
 
   .cardContent {
     padding: 15px;
   }
-}
-/* Top Right Price */
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.priceTag {
-  background-color: #007bff;
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-/* Remove old .price style */
-.price {
-  display: none;
 }

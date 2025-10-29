@@ -10,6 +10,8 @@ export default function CustomerLogin() {
     username: "",
     email: "",
     password: "",
+    gender: "",
+    location: "",
   });
   const [loginData, setLoginData] = useState({
     username: "",
@@ -31,11 +33,9 @@ export default function CustomerLogin() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(
-        `${url}/customer/signup`,
-        signupData,
-        { withCredentials: true } // important for sending/receiving cookies
-      );
+      const res = await axios.post(`${url}/customer/signup`, signupData, {
+        withCredentials: true,
+      });
       alert(res.data.message);
       setOtpData({ ...otpData, userId: res.data.userId });
       setShowOtp(true);
@@ -50,14 +50,10 @@ export default function CustomerLogin() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${url}/customer/verify-otp`,otpData,
-        { withCredentials: true } // important for cookie to be set
-      );
-
+      const res = await axios.post(`${url}/customer/verify-otp`, otpData, {
+        withCredentials: true,
+      });
       alert(res.data.message);
-
-      // ✅ no localStorage needed; cookie handles authentication
-      // Redirect to home page
       window.location.href = "/customer/home";
     } catch (err) {
       alert(err.response?.data?.message || "Invalid OTP");
@@ -68,15 +64,10 @@ export default function CustomerLogin() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${url}/customer/login`,
-        loginData,
-        { withCredentials: true } // cookie will be set from backend
-      );
-
+      const res = await axios.post(`${url}/customer/login`, loginData, {
+        withCredentials: true,
+      });
       alert(res.data.message);
-
-      // ✅ no localStorage needed
       window.location.href = "/customer/home";
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
@@ -195,8 +186,33 @@ export default function CustomerLogin() {
               />
             </label>
 
+            <label className="auth-label">
+              Gender
+              <select
+                name="gender"
+                value={signupData.gender}
+                onChange={handleSignupChange}
+                className="auth-input"
+              >
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </label>
+
+            <label className="auth-label">
+              Location
+              <input
+                name="location"
+                value={signupData.location}
+                onChange={handleSignupChange}
+                className="auth-input"
+                placeholder="Enter your city or area"
+              />
+            </label>
+
             <button type="submit" className="auth-button" disabled={loading}>
-              {loading ? "Sending OTP, please wait..." : "Signup"}
+              {loading ? "Sending OTP..." : "Signup"}
             </button>
 
             <p className="auth-switch-text">

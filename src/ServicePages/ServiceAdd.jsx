@@ -73,7 +73,7 @@ const ServiceAdd = () => {
         if (value !== null) formData.append(key, value);
       });
 
-      const res = await fetch(`${url}/service/add/frist`, {
+      const res = await fetch(`${url}/service/add`, {
         method: "POST",
         body: formData,
       });

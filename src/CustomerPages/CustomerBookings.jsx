@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Book from "../assets/Book.png"; // placeholder if no bookings
+import Book from "../assets/Book.png";
 import axios from "axios";
 import "./CustomerBookings.css";
 
-// Convert ArrayBuffer to Base64
 const arrayBufferToBase64 = (buffer) => {
   let binary = "";
   const bytes = buffer.data ? new Uint8Array(buffer.data) : new Uint8Array(buffer);
@@ -16,12 +15,13 @@ const arrayBufferToBase64 = (buffer) => {
   return window.btoa(binary);
 };
 
-// Status Tag Component
+// ✅ Status Tag Component
 const StatusTag = ({ status }) => {
+  const lower = status.toLowerCase();
   let backgroundColor = "";
   let color = "#fff";
 
-  switch (status.toLowerCase()) {
+  switch (lower) {
     case "pending":
       backgroundColor = "#ffc107";
       color = "#212529";
@@ -54,13 +54,11 @@ const CustomerBookings = () => {
   const navigate = useNavigate();
   const url = import.meta.env.VITE_SERVER_URL;
 
-  // Fetch username from JWT cookie
+  // ✅ Fetch username
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${url}/me`, {
-          withCredentials: true,
-        });
+        const res = await axios.get(`${url}/me`, { withCredentials: true });
         setCustomerUsername(res.data.payload.username);
       } catch (err) {
         console.error(err);
@@ -71,10 +69,9 @@ const CustomerBookings = () => {
     fetchUser();
   }, []);
 
-  // Fetch bookings
+  // ✅ Fetch bookings
   useEffect(() => {
     if (!customerUsername) return;
-
     const fetchBookings = async () => {
       try {
         const res = await axios.get(
@@ -88,11 +85,10 @@ const CustomerBookings = () => {
         setLoading(false);
       }
     };
-
     fetchBookings();
   }, [customerUsername]);
 
-  // Cancel booking
+  // ✅ Cancel booking
   const handleCancelBooking = async (bookingId) => {
     if (!window.confirm("Are you sure you want to cancel this booking?")) return;
 
@@ -114,7 +110,7 @@ const CustomerBookings = () => {
     }
   };
 
-  // Get image URL from buffer/base64
+  // ✅ Convert image
   const getImageSource = (image) => {
     if (!image) return null;
     if (image.url) return image.url;
@@ -123,14 +119,24 @@ const CustomerBookings = () => {
     return null;
   };
 
+  // ✅ Format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      weekday: "long",
+    });
+  };
+
   if (loading) return <div className="loading">Loading bookings...</div>;
   if (error) return <div className="error-text">{error}</div>;
+
   if (!loading && bookings.length === 0)
     return (
       <div className="no-bookings-container">
-        <div>
-          <img src={Book} alt="Clipboard" className="clipboard-image" />
-        </div>
+        <img src={Book} alt="Clipboard" className="clipboard-image" />
         <h2 className="no-bookings-title">You have no bookings yet 🛋️</h2>
         <p className="no-bookings-message">
           It looks like you haven't made any bookings yet. Start exploring our
@@ -151,33 +157,30 @@ const CustomerBookings = () => {
       <div className="bookingslist">
         {bookings.map((booking) => (
           <div key={booking._id} className="bookingcard">
-            {/* Image */}
+            {/* 🖼 Image */}
             <div className="bookingimage">
               {getImageSource(booking.image) && (
-                <img
-                  src={getImageSource(booking.image)}
-                  alt={booking.service}
-                />
+                <img src={getImageSource(booking.image)} alt={booking.service} />
               )}
             </div>
 
-            {/* Details */}
+            {/* 📄 Details */}
             <div className="bookingdetails">
-              <h3>{booking.service}</h3>
+              <div className="bookingheader">
+                <h3>{booking.service}</h3>
+                <StatusTag status={booking.status} />
+              </div>
+
               <p>
                 <strong>Provider:</strong> {booking.providername}
               </p>
               <p>
-                <strong>Experience:</strong> {booking.experience} years
-              </p>
-              <p>
-                <strong>Service Date:</strong> {new Date(booking.customerdate).toLocaleDateString()}
+                <strong>Service Date:</strong> {formatDate(booking.customerdate)}
               </p>
               <p className="description">
                 <strong>Description:</strong> {booking.providerdescription}
               </p>
 
-              {/* Actions */}
               <div className="bookingactions">
                 <button
                   className="btn-view"
@@ -201,9 +204,6 @@ const CustomerBookings = () => {
                 )}
               </div>
             </div>
-
-            {/* Status */}
-            <StatusTag status={booking.status} />
           </div>
         ))}
       </div>

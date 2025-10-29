@@ -141,8 +141,6 @@ const ServiceBooking = () => {
         setProviderUsername(res.data.payload.username);
       } catch (err) {
         console.error("Failed to fetch user:", err);
-        alert("Session expired or not logged in. Please log in again.");
-        window.location.href = "/service/login";
       }
     };
     fetchUser();
