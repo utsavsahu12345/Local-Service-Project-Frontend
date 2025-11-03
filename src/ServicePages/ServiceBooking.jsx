@@ -218,6 +218,9 @@ const ServiceBooking = () => {
                         <p className="booking-time mt-2">
                           {formatDateAndTime(b.customerdate)}
                         </p>
+                        <p className="service-description mt-1">
+                          {b.feedback}
+                        </p>
                       </div>
                     </div>
                   </div>

@@ -169,13 +169,13 @@ const ServiceNavbar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/service/add" className="nav-link">
-                  Add
+                <Link to="/service/booking" className="nav-link">
+                  Booking
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/service/booking" className="nav-link">
-                  Booking
+                <Link to="/service/buy/service" className="nav-link">
+                  Book Service
                 </Link>
               </li>
               <li className="nav-item">

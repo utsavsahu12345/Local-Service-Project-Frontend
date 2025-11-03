@@ -24,6 +24,9 @@ import ServiceDashboard from "./ServicePages/ServiceDashboard";
 import ServiceAdd from "./ServicePages/ServiceAdd";
 import ServiceBooking from "./ServicePages/ServiceBooking";
 import ServiceFeedback from "./ServicePages/ServiceFeedback";
+import BuyService from "./ServicePages/ServiceBuy";
+import ServiceBook from "./ServicePages/ServiceBook";
+import ServiceDetails from "./ServicePages/ServiceDetails";
 
 import AdminLogin from "./Login/AdminLogin";
 import AdminDashboard from "./AdminPages/AdminDashboard";
@@ -69,6 +72,9 @@ function App() {
           <Route path="feedback" element={<ServiceFeedback />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="buy/service" element={<BuyService/>}/>
+          <Route path="book" element={<ServiceBook/>}/>
+          <Route path="service/details" element={<ServiceDetails/>}/>
         </Route>
 
         {/* Admin Pages with Admin Navbar */}

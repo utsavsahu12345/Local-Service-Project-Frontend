@@ -297,7 +297,6 @@ const ServiceAdd = () => {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
