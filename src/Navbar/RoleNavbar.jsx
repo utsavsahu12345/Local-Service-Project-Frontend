@@ -57,7 +57,7 @@ export default function RoleNavbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  to="/customer/login"
+                  to="/login"
                   className="btn btn-primary"
                   style={{ textDecoration: "none", color: "white" }}
                 >

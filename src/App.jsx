@@ -9,6 +9,7 @@ import AdminNavbar from "./Navbar/AdminNavbar";
 import RoleSelection from "./Navbar/RoleSelection";
 import About from "./Navbar/About";
 import Contact from "./Navbar/Contact";
+import Login from "./Login/Login";
 
 import CustomerLogin from "./Login/CustomerLogin";
 import CustomerHome from "./CustomerPages/CustomerHome";
@@ -30,6 +31,7 @@ import AdminService from "./AdminPages/AdminService";
 import AdminBooking from "./AdminPages/AdminBooking";
 import AdminUser from "./AdminPages/AdminUser";
 
+
 function App() {
   return (
     <Router>
@@ -42,6 +44,7 @@ function App() {
         </Route>
 
         {/* Login Pages */}
+        <Route path="/login" element={<Login />} />
         <Route path="/customer/login" element={<CustomerLogin />} />
         <Route path="/service/login" element={<ServiceLogin />} />
         <Route path="/admin/login" element={<AdminLogin />} />
