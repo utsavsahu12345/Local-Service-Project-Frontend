@@ -292,3 +292,117 @@
     width: 100%;
   }
 }
+/* === OTP MODAL === */
+.otp-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+.otp-modal {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 380px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: scaleIn 0.25s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.otp-modal h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.otp-email {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.otp-modal input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 2px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.otp-modal input:focus {
+  border-color: #2563eb;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.otp-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.otp-buttons button {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.otp-buttons button:first-child {
+  background-color: #2563eb;
+  color: white;
+}
+
+.otp-buttons button:first-child:hover {
+  background-color: #1e40af;
+}
+
+.cancel-btn {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.cancel-btn:hover {
+  background-color: #d1d5db;
+}
+
+@media (max-width: 480px) {
+  .otp-modal {
+    padding: 1.5rem;
+    width: 90%;
+  }
+}

@@ -49,19 +49,19 @@ function Contact() {
           <h2>Why Choose Us</h2>
           <div className="choose-cards">
             <div className="choose-card">
-              <span>💰</span>
+              <p>💰</p>
               <p>Affordable</p>
             </div>
             <div className="choose-card">
-              <span>⚙️</span>
+              <p>⚙️</p>
               <p>Certified Professionals</p>
             </div>
             <div className="choose-card">
-              <span>⏱️</span>
+              <p>⏱️</p>
               <p>Quick Response</p>
             </div>
             <div className="choose-card">
-              <span>👍</span>
+              <p>👍</p>
               <p>Satisfaction Guaranteed</p>
             </div>
           </div>
@@ -116,9 +116,25 @@ function Contact() {
                 again."
               </p>
             </div>
+
+            {/* ✅ New Testimonial Card */}
+            <div className="testimonial-card">
+              <div className="testimonial-header">
+                <img src="https://i.pravatar.cc/40?img=4" alt="user4" />
+                <div>
+                  <h4>Liam Johnson</h4>
+                  <p>2023-09-05</p>
+                </div>
+              </div>
+              <p className="stars">⭐⭐⭐⭐⭐</p>
+              <p>
+                "Outstanding experience! The AC repair service was quick,
+                affordable, and handled with great care. Highly trustworthy
+                professionals!"
+              </p>
+            </div>
           </div>
         </section>
-
         {/* Contact Us */}
         <section className="contact-section">
           <div className="contact-info">
@@ -128,9 +144,15 @@ function Contact() {
               We’re here to help!
             </p>
             <ul>
-              <li><i class="fa-solid fa-phone"></i> (+91) 9343533040</li>
-              <li><i class="fa-solid fa-envelope"></i> UtsavSahu12345@gmail.com</li>
-              <li><i class="fa-solid fa-location-dot"></i> Harda, Madhya Pradesh, India</li>
+              <li>
+                <i class="fa-solid fa-phone"></i> (+91) 9343533040
+              </li>
+              <li>
+                <i class="fa-solid fa-envelope"></i> UtsavSahu12345@gmail.com
+              </li>
+              <li>
+                <i class="fa-solid fa-location-dot"></i> Harda, Madhya Pradesh, India
+              </li>
             </ul>
           </div>
 

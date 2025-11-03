@@ -123,37 +123,13 @@ const App = () => {
       </section>
 
       {/* --- Footer --- */}
-      <footer className="mainfooter">
-        <div className="footercontent">
-          <div className="footercol">
-            <h4>ServicePro</h4>
-            <p>Connecting you with trusted local professionals for all your home service needs.</p>
+      <footer className="contact-footer">
+          <div>© 2025 Local Service. All rights reserved.</div>
+          <div className="footer-a">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
           </div>
-          <div className="footercol">
-            <h4>Quick Links</h4>
-            <ul>
-              <li>Home</li>
-              <li>Services</li>
-              <li>About Us</li>
-              <li>Contact</li>
-            </ul>
-          </div>
-          <div className="footercol">
-            <h4>Contact</h4>
-            <p>Email: contact@servicepro.com</p>
-            <p>Phone: (555) 555-5555</p>
-          </div>
-          <div className="footercol">
-            <h4>Follow Us</h4>
-            <div className="sociallinks">
-              <a href="#">F</a>
-              <a href="#">T</a>
-              <a href="#">I</a>
-            </div>
-          </div>
-        </div>
-        <div className="copyright">© 2024 ServicePro. All rights reserved.</div>
-      </footer>
+        </footer>
     </div>
   );
 };
