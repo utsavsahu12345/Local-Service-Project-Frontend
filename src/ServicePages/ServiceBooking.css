@@ -1,408 +1,336 @@
-/* === HEADER === */
-.dashboard-header-container {
-  color: rgb(0, 0, 0);
-  padding: 1.2rem 2rem;
-}
-.my{
-  font-weight: 700;
-  padding: 20px;
-}
-.header-content-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.header-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
-/* === MAIN CONTENT === */
-.booking-main-content {
-  flex: 1;
+.bookingPage {
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
-}
-
-/* === NO BOOKINGS STATE === */
-.no-bookings-container {
-  text-align: center;
-  padding: 4rem 1rem;
+  background: #f9fafb;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.8s ease;
 }
 
-.no-bookings-image {
-  width: 300px;
-  height: auto;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-}
-
-.no-bookings-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #374151;
-  margin-bottom: 0.5rem;
-}
-
-.no-bookings-message {
-  font-size: 1rem;
-  color: #6b7280;
-  max-width: 480px;
+.container {
+  width: 100%;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
-/* === BOOKINGS GRID === */
-.bookings-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 1.5rem;
+.pageTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-/* === BOOKING CARD === */
-.booking-card {
-  background: #ffffff;
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1300px;
+  justify-content: center;
+}
+
+.bookingCard {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
   border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: 0.3s;
+  overflow: visible;
+  position: relative;
+  margin: 0 auto;
 }
 
-.booking-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+.bookingCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* === CARD CONTENT === */
-.card-content-wrapper {
-  padding: 1.2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* === CUSTOMER INFO === */
-.customer-info-section {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.customer-profile-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 5px;
-  object-fit: cover;
-  border: 2px solid #e5e7eb;
-}
-
-.details-wrapper {
-  flex: 1;
-}
-
-.name-status-row {
+.cardHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.3rem;
+  justify-content: left;
+  padding: 1.2rem;
 }
 
-.customer-name {
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #e0e7ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #374151;
+}
+
+.customerName {
   font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 0.5;
+}
+
+.serviceText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #0ea5e9;
+}
+
+.cardBody {
+  padding: 1rem 1.2rem;
+  color: #374151;
+  font-size: 0.95rem;
+  flex-grow: 1;
+}
+
+.cardBody p {
+  margin: 0.4rem 0;
+}
+
+.desc,
+.feedback {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  color: #4b5563;
+  cursor: pointer;
+  position: relative;
+}
+
+.desc:hover::after,
+.feedback:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+  bottom: 120%;
+  width: max-content;
+  max-width: 300px;
+  background: #111827;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  white-space: normal;
+  line-height: 1.4;
+  z-index: 9999;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.cardFooter {
+  display: flex;
+  gap: 0.6rem;
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.btn.reject {
+  background: #f3f4f6;
+  color: #111827;
+}
+.btn.reject:hover {
+  background: #e5e7eb;
+}
+
+.btn.confirm {
+  background: #2563eb;
+  color: white;
+}
+.btn.confirm:hover {
+  background: #1e3a8a;
+}
+
+.btn.complete {
+  background: #10b981;
+  color: white;
+}
+.btn.complete:hover {
+  background: #059669;
+}
+
+.btn.status.completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.btn.status.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.btn.status.cancel {
+  background: #fef3c7;
+  color: #92400e; 
+}
+
+.btn.status.cancel:hover {
+  background: #fde68a;
+}
+
+.noBookings {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.noBookings img {
+  width: 220px;
+  margin-bottom: 1rem;
+}
+
+.noBookings h3 {
   font-weight: 600;
   color: #111827;
 }
 
-.contact-info-text {
-  font-size: 0.95rem;
-  color: #6b7280;
-}
-
-/* === SERVICE DETAILS === */
-.service-details-section {
-  margin-top: 0.5rem;
-}
-
-.service-title {
-  font-weight: 600;
-  font-size: 1rem;
-  color: #2563eb;
-}
-
-.service-description {
-  font-size: 0.95rem;
-  color: #374151;
-  line-height: 1.4;
-}
-
-.booking-time {
-  font-size: 0.9rem;
-  color: #6b7280;
-  margin-top: 0.3rem;
-}
-
-/* === STATUS BADGE === */
-.status-badge {
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0.35rem 0.7rem;
-  border-radius: 9999px;
-  text-transform: capitalize;
-}
-
-.status-pending {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-.status-confirm {
-  background-color: #f3f3f3;
-  color: #065f46;
-}
-
-.status-rejected {
-  background-color: #fee2e2;
-  color: #991b1b;
-}
-
-.status-completed {
-  background-color: #e0f2fe;
-  color: #075985;
-}
-
-/* === CARD ACTION BUTTONS === */
-.card-actions-footer {
-  display: flex;
-  gap: 0.6rem;
-  padding: 1rem 1.5rem;
-  border-top: 1px solid #f3f4f6;
-  background-color: #f9fafb;
-}
-
-.action-btn {
-  flex: 1;
-  font-weight: 600;
-  border: none;
-  border-radius: 0.6rem;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.action-btn:hover {
-  transform: translateY(-1px);
-}
-
-.confirm-btn {
-  background-color: #2563eb;
-  color: white;
-}
-
-.confirm-btn:hover {
-  background-color: #1e40af;
-}
-
-.reject-btn {
-  background-color: #ef4444;
-  color: white;
-}
-
-.reject-btn:hover {
-  background-color: #b91c1c;
-}
-
-.complete-btn {
-  background-color: #10b981;
-  color: white;
-}
-
-.complete-btn:hover {
-  background-color: #059669;
-}
-
-.disabled-btn {
-  background-color: #e5e7eb;
-  color: #6b7280;
-  cursor: not-allowed;
-}
-
-.full-width {
-  flex: 1 0 100%;
-}
-
-/* === ANIMATION === */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@media (max-width: 1024px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* === RESPONSIVE DESIGN === */
-@media (max-width: 768px) {
-  .booking-main-content {
-    padding: 1rem;
-  }
-
-  .header-title {
-    font-size: 1.5rem;
-  }
-
-  .bookings-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .customer-profile-img {
-    width: 65px;
-    height: 65px;
-  }
-
-  .no-bookings-image {
-    width: 150px;
+@media (max-width: 700px) {
+  .cardGrid {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
+/* ================= OTP Modal ================= */
 
-@media (max-width: 480px) {
-  .no-bookings-title {
-    font-size: 1.25rem;
-  }
-
-  .no-bookings-message {
-    font-size: 0.9rem;
-  }
-
-  .card-actions-footer {
-    flex-direction: column;
-  }
-
-  .action-btn {
-    width: 100%;
-  }
-}
-/* === OTP MODAL === */
-.otp-modal-overlay {
+.otpModalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(17, 24, 39, 0.6);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(3px);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 999;
-  animation: fadeIn 0.3s ease;
 }
 
-.otp-modal {
+.otpModal {
   background: #ffffff;
   padding: 2rem;
   border-radius: 1rem;
   width: 90%;
-  max-width: 380px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  max-width: 420px;
   text-align: center;
-  animation: scaleIn 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease;
 }
 
-@keyframes scaleIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.otp-modal h3 {
-  font-size: 1.4rem;
+.otpModal h3 {
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
   color: #111827;
+  margin-bottom: 0.5rem;
 }
 
-.otp-email {
-  font-size: 0.9rem;
+.otpEmail {
+  font-size: 0.95rem;
   color: #6b7280;
   margin-bottom: 1rem;
 }
 
-.otp-modal input {
+.otpModal input {
   width: 100%;
-  padding: 0.7rem;
-  border-radius: 0.5rem;
-  border: 1px solid #d1d5db;
+  padding: 0.8rem 1rem;
+  border: 1.8px solid #d1d5db;
+  border-radius: 8px;
   font-size: 1rem;
   text-align: center;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   outline: none;
-  transition: border-color 0.2s ease;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
 }
 
-.otp-modal input:focus {
+.otpModal input:focus {
   border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
-.error-text {
+.errorText {
   color: #dc2626;
   font-size: 0.9rem;
-  margin-top: 0.6rem;
+  margin-bottom: 0.8rem;
 }
 
-.otp-buttons {
+.otpButtons {
   display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  margin-top: 1.5rem;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.otp-buttons button {
+.otpButtons button {
   flex: 1;
-  padding: 0.7rem 1rem;
-  border: none;
-  border-radius: 0.6rem;
+  padding: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.otp-buttons button:first-child {
+.otpButtons button:first-child {
   background-color: #2563eb;
-  color: white;
+  color: #fff;
 }
 
-.otp-buttons button:first-child:hover {
-  background-color: #1e40af;
+.otpButtons button:first-child:hover {
+  background-color: #1e3a8a;
 }
 
-.cancel-btn {
-  background-color: #e5e7eb;
-  color: #374151;
+.cancelBtn {
+  background: #f3f4f6;
+  color: #111827;
 }
 
-.cancel-btn:hover {
-  background-color: #d1d5db;
+.cancelBtn:hover {
+  background: #e5e7eb;
 }
 
-@media (max-width: 480px) {
-  .otp-modal {
-    padding: 1.5rem;
-    width: 90%;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

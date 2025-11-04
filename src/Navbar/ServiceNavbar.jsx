@@ -179,11 +179,6 @@ const ServiceNavbar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/service/feedback" className="nav-link">
-                  Feedback
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link to="/service/about" className="nav-link">
                   About
                 </Link>

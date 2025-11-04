@@ -3,7 +3,7 @@ import axios from "axios";
 import "./ServiceBooking.css";
 import Book from "../assets/Book.png";
 
-// ================= OTP Modal Component =================
+// ================= OTP Modal =================
 const OTPModal = ({ bookingId, email, onVerified, onClose }) => {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,8 +19,8 @@ const OTPModal = ({ bookingId, email, onVerified, onClose }) => {
 
       if (res.data.success) {
         alert("✅ " + res.data.message);
-        onVerified(); // parent ko update karo
-        onClose(); // modal band karo
+        onVerified();
+        onClose();
       } else {
         setError(res.data.message || "Invalid OTP");
       }
@@ -33,10 +33,10 @@ const OTPModal = ({ bookingId, email, onVerified, onClose }) => {
   };
 
   return (
-    <div className="otp-modal-overlay">
-      <div className="otp-modal">
+    <div className="otpModalOverlay">
+      <div className="otpModal">
         <h3>Enter OTP</h3>
-        <p className="otp-email">Sent to: {email}</p>
+        <p className="otpEmail">Sent to: {email}</p>
 
         <input
           type="text"
@@ -46,13 +46,13 @@ const OTPModal = ({ bookingId, email, onVerified, onClose }) => {
           maxLength={6}
         />
 
-        {error && <p className="error-text">{error}</p>}
+        {error && <p className="errorText">{error}</p>}
 
-        <div className="otp-buttons">
+        <div className="otpButtons">
           <button onClick={handleVerify} disabled={loading}>
             {loading ? "Verifying..." : "Verify"}
           </button>
-          <button onClick={onClose} className="cancel-btn">
+          <button onClick={onClose} className="cancelBtn">
             Cancel
           </button>
         </div>
@@ -61,7 +61,7 @@ const OTPModal = ({ bookingId, email, onVerified, onClose }) => {
   );
 };
 
-// ================= Main Component =================
+// ================= MAIN COMPONENT =================
 const ServiceBooking = () => {
   const url = import.meta.env.VITE_SERVER_URL;
   const [bookings, setBookings] = useState([]);
@@ -69,16 +69,11 @@ const ServiceBooking = () => {
   const [sendingOTP, setSendingOTP] = useState(false);
   const [providerUsername, setProviderUsername] = useState("");
 
-  // --- Fetch provider info ---
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(`${url}/me`, { withCredentials: true });
-        if (res.data?.payload?.username) {
-          setProviderUsername(res.data.payload.username);
-        } else {
-          console.error("No username found in /me response:", res.data);
-        }
+        setProviderUsername(res.data?.payload?.username || "");
       } catch (err) {
         console.error("Failed to fetch user:", err);
       }
@@ -86,7 +81,6 @@ const ServiceBooking = () => {
     fetchUser();
   }, [url]);
 
-  // --- Fetch bookings for that provider ---
   useEffect(() => {
     if (!providerUsername) return;
     const fetchBookings = async () => {
@@ -97,13 +91,11 @@ const ServiceBooking = () => {
         setBookings(res.data);
       } catch (error) {
         console.error("Error fetching bookings:", error);
-        setBookings([]);
       }
     };
     fetchBookings();
   }, [providerUsername, url]);
 
-  // --- Update booking status ---
   const updateStatus = async (id, newStatus) => {
     try {
       await axios.put(`${url}/booking/status/${id}`, { status: newStatus });
@@ -115,7 +107,6 @@ const ServiceBooking = () => {
     }
   };
 
-  // --- Send OTP to customer ---
   const markCompletedWithOTP = async (booking) => {
     try {
       setSendingOTP(true);
@@ -128,13 +119,11 @@ const ServiceBooking = () => {
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
-      alert("Server error while sending OTP.");
     } finally {
       setSendingOTP(false);
     }
   };
 
-  // --- After verification ---
   const handleVerified = () => {
     setBookings((prev) =>
       prev.map((b) =>
@@ -144,7 +133,6 @@ const ServiceBooking = () => {
     setOtpBooking(null);
   };
 
-  // --- Helpers ---
   const toBase64 = (buffer) => {
     if (!buffer) return "";
     const bytes = new Uint8Array(buffer);
@@ -155,124 +143,105 @@ const ServiceBooking = () => {
 
   const formatDateAndTime = (isoDate) => {
     const date = new Date(isoDate);
-    const formattedDate = date.toLocaleDateString("en-US", {
-      month: "short",
+    return date.toLocaleString("en-IN", {
       day: "2-digit",
+      month: "short",
       year: "numeric",
     });
-    return `Service Date: ${formattedDate}`;
   };
 
-  // --- Render ---
   return (
-    <div className="container">
-      <h2 className="my">My Bookings</h2>
-      <main className="booking-main-content">
-        {bookings.length === 0 ? (
-          <div className="no-bookings-container">
-            <img src={Book} alt="No Bookings" className="no-bookings-image" />
-            <h2 className="no-bookings-title">No Bookings Yet 🛋️</h2>
-            <p className="no-bookings-message">
-              You don’t have any bookings at the moment.
-            </p>
-          </div>
-        ) : (
-          <div className="bookings-grid">
-            {bookings.map((b) => (
-              <div key={b._id} className="booking-card">
-                <div className="card-content-wrapper">
-                  <div className="customer-info-section">
-                    {b.image?.data ? (
-                      <img
-                        src={`data:${b.image.contentType};base64,${toBase64(
-                          b.image.data.data
-                        )}`}
-                        alt="Customer"
-                        className="customer-profile-img"
-                      />
-                    ) : (
-                      <img
-                        src="https://via.placeholder.com/100x100.png?text=User"
-                        className="customer-profile-img"
-                        alt="User"
-                      />
-                    )}
-                    <div className="details-wrapper">
-                      <div className="name-status-row">
-                        <p className="customer-name">{b.customername}</p>
-                        <span className={`status-badge status-${b.status}`}>
-                          {b.status.charAt(0).toUpperCase() + b.status.slice(1)}
-                        </span>
-                      </div>
-                      <p className="contact-info-text mb-1">
-                        {b.customerphone}
-                      </p>
-                      <p className="contact-info-text mb-3">
-                        {b.customeraddress}
-                      </p>
-                      <div className="service-details-section">
-                        <h4 className="service-title">Service: {b.service}</h4>
-                        <p className="service-description mt-1">
-                          {b.customerdescription}
-                        </p>
-                        <p className="booking-time mt-2">
-                          {formatDateAndTime(b.customerdate)}
-                        </p>
-                        <p className="service-description mt-1">
-                          {b.feedback}
-                        </p>
-                      </div>
+    <div className="bookingPage">
+      <h2 className="pageTitle">My Bookings</h2>
+
+      {bookings.length === 0 ? (
+        <div className="noBookings">
+          <img src={Book} alt="No Bookings" />
+          <h3>No Bookings Yet 🛋️</h3>
+          <p>You don’t have any bookings at the moment.</p>
+        </div>
+      ) : (
+        <div className="cardGrid">
+          {bookings.map((b) => (
+            <div className="bookingCard" key={b._id}>
+              <div className="cardHeader">
+                <div className="avatar">
+                  {b.image?.data ? (
+                    <img
+                      src={`data:${b.image.contentType};base64,${toBase64(
+                        b.image.data.data
+                      )}`}
+                      alt="Profile"
+                    />
+                  ) : (
+                    <div className="avatarPlaceholder">
+                      {b.customername?.[0]?.toUpperCase()}
                     </div>
-                  </div>
+                  )}
                 </div>
-
-                {/* --- Actions --- */}
-                <div className="card-actions-footer">
-                  {b.status === "pending" && (
-                    <>
-                      <button
-                        className="action-btn confirm-btn"
-                        onClick={() => updateStatus(b._id, "confirm")}
-                      >
-                        Confirm
-                      </button>
-                      <button
-                        className="action-btn reject-btn"
-                        onClick={() => updateStatus(b._id, "rejected")}
-                      >
-                        Reject
-                      </button>
-                    </>
-                  )}
-
-                  {b.status === "confirm" && (
-                    <button
-                      className="action-btn complete-btn full-width"
-                      onClick={() => markCompletedWithOTP(b)}
-                      disabled={sendingOTP}
-                    >
-                      {sendingOTP
-                        ? "Sending OTP, please wait..."
-                        : "Mark Completed"}
-                    </button>
-                  )}
-
-                  {["completed", "rejected", "cancel"].includes(b.status) && (
-                    <button
-                      disabled
-                      className="action-btn disabled-btn full-width"
-                    >
-                      {b.status.charAt(0).toUpperCase() + b.status.slice(1)}
-                    </button>
-                  )}
+                <div>
+                  <h3 className="customerName">{b.customername}</h3>
+                  <p className="serviceText">{b.service}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </main>
 
-      {/* --- OTP Modal --- */}
+              <div className="cardBody">
+                <p>
+                  <i class="fa-solid fa-calendar"></i>{" "}
+                  {formatDateAndTime(b.customerdate)}
+                </p>
+                <p>
+                  <i class="fa-solid fa-location-dot"></i> {b.customeraddress}
+                </p>
+                <p>
+                  <i class="fa-solid fa-phone"></i> {b.customerphone}
+                </p>
+                <p className="desc" title={b.customerdescription}>
+                  “{b.customerdescription || "No description provided."}”
+                </p>
+                <p className="feedback" title={b.feedback}>
+                  💬 {b.feedback || "No feedback yet."}
+                </p>
+              </div>
+
+              <div className="cardFooter">
+                {b.status === "pending" && (
+                  <>
+                    <button
+                      className="btn reject"
+                      onClick={() => updateStatus(b._id, "rejected")}
+                    >
+                      Reject
+                    </button>
+                    <button
+                      className="btn confirm"
+                      onClick={() => updateStatus(b._id, "confirm")}
+                    >
+                      Confirm
+                    </button>
+                  </>
+                )}
+
+                {b.status === "confirm" && (
+                  <button
+                    className="btn complete"
+                    onClick={() => markCompletedWithOTP(b)}
+                  >
+                    {sendingOTP ? "Sending OTP..." : "Mark as Completed"}
+                  </button>
+                )}
+
+                {["completed", "rejected", "cancel"].includes(b.status) && (
+                  <button className={`btn status ${b.status}`} disabled>
+                    {b.status.charAt(0).toUpperCase() + b.status.slice(1)}
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {otpBooking && (
         <OTPModal
           bookingId={otpBooking._id}

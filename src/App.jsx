@@ -14,7 +14,6 @@ import Login from "./Login/Login";
 import CustomerLogin from "./Login/CustomerLogin";
 import CustomerHome from "./CustomerPages/CustomerHome";
 import CustomerBooking from "./CustomerPages/CustomerBookings";
-import CustomerFeedback from "./CustomerPages/CustomerFeedback";
 import SelectService from "./CustomerPages/SelectService";
 import ViewDetails from "./CustomerPages/ViewDetails";
 import BookingDetails from "./CustomerPages/BookingDetails";
@@ -56,7 +55,6 @@ function App() {
         <Route path="/customer" element={<CustomerNavbar />}>
           <Route path="home" element={<CustomerHome />} />
           <Route path="bookings" element={<CustomerBooking />} />
-          <Route path="feedback" element={<CustomerFeedback />} />
           <Route path="select/service" element={<SelectService />} />
           <Route path="view/details" element={<ViewDetails />} />
           <Route path="booking/details" element={<BookingDetails />} />
