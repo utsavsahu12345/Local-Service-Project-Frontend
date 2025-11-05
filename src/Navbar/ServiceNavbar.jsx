@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Profile from "../assets/profile.jpg";
@@ -158,35 +158,71 @@ const ServiceNavbar = () => {
             </div>
           </div>
 
+          {/* Center Navigation */}
           <div
             className="collapse navbar-collapse justify-content-center order-lg-2"
             id="navbarNav"
           >
             <ul className="navbar-nav gap-4">
               <li className="nav-item">
-                <Link to="/service/dashboard" className="nav-link">
+                <NavLink
+                  to="/service/dashboard"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "text-primary fw-bold border-bottom border-primary" : ""}`
+                  }
+                >
                   Dashboard
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/service/booking" className="nav-link">
+                <NavLink
+                  to="/service/booking"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "text-primary fw-bold border-bottom border-primary" : ""}`
+                  }
+                >
                   Booking
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/service/buy/service" className="nav-link">
+                <NavLink
+                  to="/service/buy/service"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "text-primary fw-bold border-bottom border-primary" : ""}`
+                  }
+                >
+                  Service
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  to="/service/book"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "text-primary fw-bold border-bottom border-primary" : ""}`
+                  }
+                >
                   Book Service
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/service/about" className="nav-link">
+                <NavLink
+                  to="/service/about"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "text-primary fw-bold border-bottom border-primary" : ""}`
+                  }
+                >
                   About
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/service/contact" className="nav-link">
+                <NavLink
+                  to="/service/contact"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "text-primary fw-bold border-bottom border-primary" : ""}`
+                  }
+                >
                   Contact
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>

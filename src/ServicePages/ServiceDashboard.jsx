@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import heroImage from "../assets/HeroService.png";
@@ -12,7 +12,17 @@ const ServiceDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState(null);
-    const url = import.meta.env.VITE_SERVER_URL;
+  const url = import.meta.env.VITE_SERVER_URL;
+
+  // 👇 Reference for "Recently Added Services" section
+  const servicesSectionRef = useRef(null);
+
+  // 👇 Scroll handler
+  const handleScrollToServices = () => {
+    servicesSectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
   // Fetch user from JWT cookie
   useEffect(() => {
@@ -42,10 +52,9 @@ const ServiceDashboard = () => {
 
     const fetchServices = async () => {
       try {
-        const res = await fetch(
-          `${url}/service/home/${Username}`,
-          { credentials: "include" } // include cookie
-        );
+        const res = await fetch(`${url}/service/home/${Username}`, {
+          credentials: "include",
+        });
         const data = await res.json();
         setServices(data);
       } catch (err) {
@@ -63,10 +72,10 @@ const ServiceDashboard = () => {
     if (!window.confirm("Are you sure you want to delete this service?")) return;
 
     try {
-      const res = await fetch(
-        `${url}/service/delete/${Username}/${id}`,
-        { method: "DELETE", credentials: "include" }
-      );
+      const res = await fetch(`${url}/service/delete/${Username}/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
       const data = await res.json();
       if (res.ok) {
         alert("Service deleted successfully");
@@ -105,7 +114,9 @@ const ServiceDashboard = () => {
       if (res.ok) {
         alert("Service updated successfully");
         setServices((prev) =>
-          prev.map((s) => (s._id === editData._id ? { ...s, ...updateData } : s))
+          prev.map((s) =>
+            s._id === editData._id ? { ...s, ...updateData } : s
+          )
         );
         setShowModal(false);
       } else {
@@ -133,7 +144,10 @@ const ServiceDashboard = () => {
           <Link to="/service/add">
             <button className="primary-btn">Add Your Service</button>
           </Link>
-          <button className="secondary-btn">Explore Services</button>
+          {/* 👇 Added scroll handler here */}
+          <button className="secondary-btn" onClick={handleScrollToServices}>
+            Explore Services
+          </button>
         </div>
       </div>
       <div className="hero-right">
@@ -154,9 +168,13 @@ const ServiceDashboard = () => {
   return (
     <>
       <HeroSection />
-      <div className="container py-5">
+
+      {/* 👇 Added ref here */}
+      <div ref={servicesSectionRef} className="container py-5">
         <h3 className="mb-4 text-center fw-bolder">
-          {services.length > 0 ? "Recently Added Services" : "No Services Added Yet"}
+          {services.length > 0
+            ? "Recently Added Services"
+            : "No Services Added Yet"}
         </h3>
 
         {services.length === 0 ? (
@@ -182,7 +200,10 @@ const ServiceDashboard = () => {
                         alt={service.name}
                       />
                     ) : (
-                      <img src="https://via.placeholder.com/400x200" alt="Service" />
+                      <img
+                        src="https://via.placeholder.com/400x200"
+                        alt="Service"
+                      />
                     )}
                   </div>
                   <div className="p-3">
@@ -204,20 +225,25 @@ const ServiceDashboard = () => {
                     </div>
                     <h6 className="text-primary fw-bold">{service.service}</h6>
                     <p className="text-muted small mb-2">
-                      <i className="fa-solid fa-briefcase"></i> {service.experience} years of experience
+                      <i className="fa-solid fa-briefcase"></i>{" "}
+                      {service.experience} years of experience
                     </p>
                     <p className="small">
-                      <i className="fa-solid fa-message"></i> {service.description}
+                      <i className="fa-solid fa-message"></i>{" "}
+                      {service.description}
                     </p>
                     <ul className="list-unstyled small text-muted">
                       <li>
-                        <i className="fa-solid fa-tag"></i> ₹{service.visitingPrice}(visiting) - ₹{service.maxPrice}(max)
+                        <i className="fa-solid fa-tag"></i> ₹
+                        {service.visitingPrice}(visiting) - ₹{service.maxPrice}
+                        (max)
                       </li>
                       <li>
                         <i className="fa-solid fa-phone"></i> {service.phone}
                       </li>
                       <li>
-                        <i className="fa-solid fa-location-dot"></i> {service.location}
+                        <i className="fa-solid fa-location-dot"></i>{" "}
+                        {service.location}
                       </li>
                     </ul>
                     <span
@@ -235,10 +261,16 @@ const ServiceDashboard = () => {
                     </span>
                   </div>
                   <div className="card-footer d-flex justify-content-end gap-2 p-3">
-                    <button className="btn btn-outline-danger btn-sm" onClick={() => handleDelete(service._id)}>
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => handleDelete(service._id)}
+                    >
                       Delete
                     </button>
-                    <button className="btn btn-outline-primary btn-sm" onClick={() => handleEdit(service)}>
+                    <button
+                      className="btn btn-outline-primary btn-sm"
+                      onClick={() => handleEdit(service)}
+                    >
                       Edit
                     </button>
                   </div>
@@ -249,59 +281,162 @@ const ServiceDashboard = () => {
         )}
 
         {showModal && editData && (
-          <div className="modal fade show" style={{ display: "block", background: "rgba(0,0,0,0.5)" }}>
+          <div
+            className="modal fade show"
+            style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
+          >
             <div className="modal-dialog modal-lg">
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title">Edit Service</h5>
-                  <button className="btn-close" onClick={() => setShowModal(false)}></button>
+                  <button
+                    className="btn-close"
+                    onClick={() => setShowModal(false)}
+                  ></button>
                 </div>
                 <div className="modal-body">
                   <div className="row g-3">
                     <div className="col-md-6">
                       <label className="form-label">Name</label>
-                      <input type="text" name="name" className="form-control" value={editData.name || ""} onChange={handleChange} />
+                      <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        value={editData.name || ""}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="col-md-6">
                       <label className="form-label">Phone</label>
-                      <input type="text" name="phone" className="form-control" value={editData.phone || ""} onChange={handleChange} />
+                      <input
+                        type="text"
+                        name="phone"
+                        className="form-control"
+                        value={editData.phone || ""}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="col-md-6">
                       <label className="form-label">Service</label>
-                      <select name="service" className="form-control" value={editData.service || ""} onChange={handleChange}>
+                      <select
+                        name="service"
+                        className="form-control"
+                        value={editData.service || ""}
+                        onChange={handleChange}
+                      >
                         <option value="Plumber">Plumber</option>
                         <option value="Electrician">Electrician</option>
                         <option value="Carpenter">Carpenter</option>
                         <option value="Painter">Painter</option>
-                        <option value="Washing Machine Repair">Washing Machine Repair</option>
+                        <option value="AC Mechanic">AC Mechanic</option>
+                        <option value="Refrigerator Repairer">
+                          Refrigerator Repairer
+                        </option>
+                        <option value="Washing Machine Technician">
+                          Washing Machine Technician
+                        </option>
+                        <option value="RO Service">
+                          RO / Water Purifier Service
+                        </option>
+                        <option value="CCTV Installation">
+                          CCTV Installation
+                        </option>
+                        <option value="Geyser Repair">Geyser Repair</option>
+                        <option value="House Cleaning">House Cleaning</option>
+                        <option value="Sofa Cleaning">Sofa Cleaning</option>
+                        <option value="Carpet Cleaning">
+                          Carpet Cleaning
+                        </option>
+                        <option value="Pest Control">Pest Control</option>
+                        <option value="Bathroom Cleaning">
+                          Bathroom Cleaning
+                        </option>
+                        <option value="Bike Mechanic">Bike Mechanic</option>
+                        <option value="Car Mechanic">Car Mechanic</option>
+                        <option value="Car Wash">Car Wash</option>
+                        <option value="Battery Replacement">
+                          Battery Replacement
+                        </option>
+                        <option value="Barber">Barber</option>
+                        <option value="Beautician">Beautician</option>
                         <option value="Makeup Artist">Makeup Artist</option>
-                        <option value="Hair Stylist">Hair Stylist</option>
-                        <option value="Cricket Coaching">Cricket Coaching</option>
+                        <option value="Massage Therapist">
+                          Massage Therapist
+                        </option>
+                        <option value="Computer Repair">
+                          Computer Repair
+                        </option>
+                        <option value="Mobile Repair">Mobile Repair</option>
+                        <option value="Internet Setup">
+                          Internet / WiFi Setup
+                        </option>
+                        <option value="Photographer">Photographer</option>
+                        <option value="Tutor">Tutor / Teacher</option>
+                        <option value="Snake Rescue Team">
+                          Snake Rescue Team
+                        </option>
+                        <option value="Motor Replacement">
+                          Motor Replacement
+                        </option>
                       </select>
                     </div>
                     <div className="col-md-6">
                       <label className="form-label">Experience (years)</label>
-                      <input type="number" name="experience" className="form-control" value={editData.experience || ""} onChange={handleChange} />
+                      <input
+                        type="number"
+                        name="experience"
+                        className="form-control"
+                        value={editData.experience || ""}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="col-12">
                       <label className="form-label">Description</label>
-                      <textarea name="description" className="form-control" value={editData.description || ""} onChange={handleChange}></textarea>
+                      <textarea
+                        name="description"
+                        className="form-control"
+                        value={editData.description || ""}
+                        onChange={handleChange}
+                      ></textarea>
                     </div>
                     <div className="col-md-6">
                       <label className="form-label">Location</label>
-                      <input type="text" name="location" className="form-control" value={editData.location || ""} onChange={handleChange} />
+                      <input
+                        type="text"
+                        name="location"
+                        className="form-control"
+                        value={editData.location || ""}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="col-md-3">
                       <label className="form-label">Visiting Price</label>
-                      <input type="number" name="visitingPrice" className="form-control" value={editData.visitingPrice || ""} onChange={handleChange} />
+                      <input
+                        type="number"
+                        name="visitingPrice"
+                        className="form-control"
+                        value={editData.visitingPrice || ""}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="col-md-3">
                       <label className="form-label">Max Price</label>
-                      <input type="number" name="maxPrice" className="form-control" value={editData.maxPrice || ""} onChange={handleChange} />
+                      <input
+                        type="number"
+                        name="maxPrice"
+                        className="form-control"
+                        value={editData.maxPrice || ""}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="col-md-6">
                       <label className="form-label">Status</label>
-                      <select name="status" className="form-control" value={editData.status || "inactive"} onChange={handleChange}>
+                      <select
+                        name="status"
+                        className="form-control"
+                        value={editData.status || "inactive"}
+                        onChange={handleChange}
+                      >
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                       </select>
@@ -309,14 +444,22 @@ const ServiceDashboard = () => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
-                  <button className="btn btn-primary" onClick={handleUpdate}>Save Changes</button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button className="btn btn-primary" onClick={handleUpdate}>
+                    Save Changes
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         )}
       </div>
+
       <Footer />
     </>
   );

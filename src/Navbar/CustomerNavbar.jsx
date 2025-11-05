@@ -1,7 +1,8 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import Profile from "../assets/profile.jpg";
 import axios from "axios";
+import "./CustomerNavbar.css"; // 👈 Add this CSS file for styles
 
 const CustomerNavbar = () => {
   const navigate = useNavigate();
@@ -20,7 +21,8 @@ const CustomerNavbar = () => {
         setUser(res.data.payload); // payload contains username, email, fullname, role
       } catch (err) {
         console.error("Failed to fetch user:", err);
-        setUser(null);
+        alert("Session expired or not logged in. Please log in again.");
+        navigate("/customer/login");
       }
     };
     fetchUser();
@@ -28,7 +30,6 @@ const CustomerNavbar = () => {
 
   const handleLogout = async () => {
     try {
-      // Optionally, call backend logout endpoint to clear cookie
       await axios.post(`${url}/logout`, {}, { withCredentials: true });
     } catch (err) {
       console.error(err);
@@ -66,7 +67,7 @@ const CustomerNavbar = () => {
             ServicePro
           </a>
 
-          {/* Right (mobile first order) */}
+          {/* Right Side (Profile & Mobile Menu) */}
           <div className="d-flex align-items-center ms-auto order-lg-3">
             <button
               className="navbar-toggler me-2 d-lg-none"
@@ -99,7 +100,7 @@ const CustomerNavbar = () => {
                     width: "320px",
                     zIndex: 1000,
                     borderRadius: "15px",
-                    background: "rgba(255, 255, 255, 0.85)",
+                    background: "rgba(255, 255, 255, 0.9)",
                     backdropFilter: "blur(10px)",
                   }}
                 >
@@ -155,41 +156,67 @@ const CustomerNavbar = () => {
             </div>
           </div>
 
-          {/* Center: Navigation links */}
+          {/* Center Navigation Links */}
           <div
             className="collapse navbar-collapse justify-content-center order-lg-2"
             id="navbarNav"
           >
             <ul className="navbar-nav gap-4">
               <li className="nav-item">
-                <Link to="/customer/home" className="nav-link">
+                <NavLink
+                  to="/customer/home"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "active-link" : ""}`
+                  }
+                >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/customer/bookings" className="nav-link">
+                <NavLink
+                  to="/customer/bookings"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "active-link" : ""}`
+                  }
+                >
                   Booking
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/customer/feedback" className="nav-link">
+                <NavLink
+                  to="/customer/feedback"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "active-link" : ""}`
+                  }
+                >
                   Feedback
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/customer/about" className="nav-link">
+                <NavLink
+                  to="/customer/about"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "active-link" : ""}`
+                  }
+                >
                   About
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to="/customer/contact" className="nav-link">
+                <NavLink
+                  to="/customer/contact"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "active-link" : ""}`
+                  }
+                >
                   Contact
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
         </div>
       </nav>
+
       <Outlet />
     </>
   );

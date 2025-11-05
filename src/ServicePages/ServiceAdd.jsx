@@ -187,6 +187,7 @@ const ServiceAdd = () => {
                   <option value="Photographer">Photographer</option>
                   <option value="Tutor">Tutor / Teacher</option>
                   <option value="Snake Rescue Team">Snake Rescue Team</option>
+                  <option value="Motor Replacement"> Motor Replacement</option>
                 </select>
               </div>
 

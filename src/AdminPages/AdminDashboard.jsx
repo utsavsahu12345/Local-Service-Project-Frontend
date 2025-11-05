@@ -9,27 +9,29 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const url = import.meta.env.VITE_SERVER_URL;
 
+  // 👇 function ko useEffect ke bahar likho
+  const fetchCounts = async () => {
+    setLoading(true); // ✅ jab refresh click kare tab loading start
+    try {
+      const [customerRes, serviceRes, bookingRes] = await Promise.all([
+        axios.get(`${url}/api/customercount`),
+        axios.get(`${url}/api/servicecount`),
+        axios.get(`${url}/api/pendingbookings`),
+      ]);
+
+      setCustomerCount(customerRes.data.totalCustomers);
+      setServiceCount(serviceRes.data.totalServices);
+      setPendingBookings(bookingRes.data.pendingBookings);
+    } catch (error) {
+      console.error("Error fetching counts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchCounts = async () => {
-      try {
-        const [customerRes, serviceRes, bookingRes] = await Promise.all([
-          axios.get(`${url}/api/customercount`),
-          axios.get(`${url}/api/servicecount`),
-          axios.get(`${url}/api/pendingbookings`),
-        ]);
-
-        setCustomerCount(customerRes.data.totalCustomers);
-        setServiceCount(serviceRes.data.totalServices);
-        setPendingBookings(bookingRes.data.pendingBookings);
-      } catch (error) {
-        console.error("Error fetching counts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchCounts();
-  }, []);
+  }, []); // ✅ sirf mount pe call hoga
 
   const totalUsers = customerCount + serviceCount;
 
@@ -37,8 +39,11 @@ const AdminDashboard = () => {
     <div className="admindashboard">
       <div className="admindashboardheader">
         <h3>Dashboard</h3>
-        <button>Refresh</button>
+        <button onClick={fetchCounts}>
+          {loading ? "Refreshing..." : "Refresh"}
+        </button>
       </div>
+
       <div className="admindashboardbox container">
         <div className="box">
           <h3>Total Users</h3>
