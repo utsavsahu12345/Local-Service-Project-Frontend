@@ -1,13 +1,13 @@
-import React, { useState} from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    role: "",
   });
+
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -27,11 +27,18 @@ export default function Login() {
       const res = await axios.post("http://localhost:5000/login", formData, {
         withCredentials: true,
       });
+
       setSuccess(res.data.message || "Login successful!");
-      if (formData.role === "customer") {
+
+      // ✅ Role comes from backend response
+      const userRole = res.data.role;
+
+      if (userRole === "Customer") {
         navigate("/customer/home");
-      } else {
+      } else if (userRole === "Service Provider") {
         navigate("/service/dashboard");
+      } else {
+        navigate("/"); // fallback
       }
     } catch (err) {
       setError(err.response?.data?.message || "Invalid credentials");
@@ -75,27 +82,13 @@ export default function Login() {
               />
             </div>
 
-            <div className="input-group">
-              <label>Role</label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Role</option>
-                <option value="customer">Customer</option>
-                <option value="serviceProvider">Service Provider</option>
-              </select>
-            </div>
-
             <button type="submit" className="login-btn" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </button>
           </form>
 
           <p className="footer-text">
-            Don’t have an account? <a href="/signup">Sign up</a>
+            Don’t have an account? <Link to="/signup">Sign up</Link>
           </p>
         </div>
       </div>
@@ -159,7 +152,7 @@ export default function Login() {
           font-weight: 500;
         }
 
-        input, select {
+        input {
           width: 100%;
           padding: 0.75rem;
           border: 1px solid #ced4da;
@@ -170,7 +163,7 @@ export default function Login() {
           background: #f8f9fa;
         }
 
-        input:focus, select:focus {
+        input:focus {
           border-color: #007bff;
           background: #fff;
           box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);

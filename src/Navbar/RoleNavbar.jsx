@@ -17,7 +17,10 @@ export default function RoleNavbar() {
               gap: "5px",
             }}
           >
-            <span style={{ color: "orange" }}><i class="fa-solid fa-screwdriver-wrench"></i></span> ServicePro
+            <span style={{ color: "orange" }}>
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </span>{" "}
+            ServicePro
           </Link>
 
           {/* Toggler for mobile */}
@@ -56,13 +59,36 @@ export default function RoleNavbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link
-                  to="/login"
-                  className="btn btn-primary"
-                  style={{ textDecoration: "none", color: "white" }}
-                >
-                  Log In
-                </Link>
+                <li className="nav-item">
+                  <Link
+                    to="/login"
+                    className="btn"
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      backgroundColor: "#007bff",
+                      padding: "8px 16px",
+                      borderRadius: "6px",
+                      marginRight: "10px",
+                      fontWeight: "600",
+                    }}>
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="btn"
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      backgroundColor: "#007bff",
+                      padding: "8px 16px",
+                      borderRadius: "6px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Sign Up
+                  </Link>
+                </li>
               </li>
             </ul>
           </div>

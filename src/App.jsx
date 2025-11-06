@@ -9,7 +9,8 @@ import AdminNavbar from "./Navbar/AdminNavbar";
 import RoleSelection from "./Navbar/RoleSelection";
 import About from "./Navbar/About";
 import Contact from "./Navbar/Contact";
-import Login from "./Login/Login";
+import Login from "./Login/SignIn";
+import Signup from "./Login/Signup";
 
 import CustomerLogin from "./Login/CustomerLogin";
 import CustomerHome from "./CustomerPages/CustomerHome";
@@ -48,6 +49,7 @@ function App() {
 
         {/* Login Pages */}
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/customer/login" element={<CustomerLogin />} />
         <Route path="/service/login" element={<ServiceLogin />} />
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -73,7 +75,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="buy/service" element={<BuyService/>}/>
-          <Route path="book" element={<ServiceBook/>}/>
+          <Route path="books" element={<ServiceBook/>}/>
           <Route path="service/details" element={<ServiceDetails/>}/>
         </Route>
 

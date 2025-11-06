@@ -10,6 +10,7 @@ export default function CustomerLogin() {
     username: "",
     email: "",
     password: "",
+    Role: "Customer",
     gender: "",
     location: "",
   });

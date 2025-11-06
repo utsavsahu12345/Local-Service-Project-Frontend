@@ -9,6 +9,7 @@ export default function ServiceLogin() {
     username: "",
     email: "",
     password: "",
+    Role: "Service Provider",
     gender: "",
     location: "",
   });

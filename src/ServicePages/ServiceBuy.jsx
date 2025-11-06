@@ -154,7 +154,7 @@ const CustomerHome = () => {
                         <button
                           className="book-btn"
                           onClick={() =>
-                            navigate("/service/book", {
+                            navigate("/service/books", {
                               state: { service: s },
                             })
                           }
