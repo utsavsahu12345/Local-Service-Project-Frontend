@@ -169,7 +169,17 @@ const CustomerNavbar = () => {
                     `nav-link ${isActive ? "active-link" : ""}`
                   }
                 >
-                  Home
+                  Dashboard
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  to="/customer/service"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? "active-link" : ""}`
+                  }
+                >
+                  Service
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -180,16 +190,6 @@ const CustomerNavbar = () => {
                   }
                 >
                   Booking
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/customer/feedback"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? "active-link" : ""}`
-                  }
-                >
-                  Feedback
                 </NavLink>
               </li>
               <li className="nav-item">

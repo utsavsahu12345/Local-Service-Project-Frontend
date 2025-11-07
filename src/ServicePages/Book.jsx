@@ -59,7 +59,7 @@ const CustomerBookings = () => {
     if (!window.confirm("Are you sure you want to cancel this booking?")) return;
 
     try {
-      await axios.put(`${url}/book/service/${id}/cancel`);
+      await axios.put(`${url}/booking/${id}/cancel`);
       alert("Booking cancelled successfully!");
       setBookings((prev) =>
         prev.map((b) => (b._id === id ? { ...b, status: "cancel" } : b))

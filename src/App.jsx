@@ -13,9 +13,9 @@ import Login from "./Login/SignIn";
 import Signup from "./Login/Signup";
 
 import CustomerLogin from "./Login/CustomerLogin";
+import CustomerDashboard from "./CustomerPages/CustomerDashboard";
 import CustomerHome from "./CustomerPages/CustomerHome";
 import CustomerBooking from "./CustomerPages/CustomerBookings";
-import CustomerFeedback from "./CustomerPages/CustomerFeedback";
 import SelectService from "./CustomerPages/SelectService";
 import ViewDetails from "./CustomerPages/ViewDetails";
 import BookingDetails from "./CustomerPages/BookingDetails";
@@ -56,9 +56,9 @@ function App() {
 
         {/* Customer Pages with Customer Navbar */}
         <Route path="/customer" element={<CustomerNavbar />}>
-          <Route path="home" element={<CustomerHome />} />
+          <Route path="home" element={<CustomerDashboard />} />
+          <Route path="service" element={<CustomerHome />} />
           <Route path="bookings" element={<CustomerBooking />} />
-          <Route path="feedback" element={<CustomerFeedback />} />
           <Route path="select/service" element={<SelectService />} />
           <Route path="view/details" element={<ViewDetails />} />
           <Route path="booking/details" element={<BookingDetails />} />
