@@ -3,7 +3,6 @@ import axios from "axios"; // ✅ Missing import
 import { useNavigate } from "react-router-dom";
 import "./ServiceAdd.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import Footer from "./Footer";
 
 const ServiceAdd = () => {
   const navigate = useNavigate();

@@ -18,7 +18,6 @@ import CustomerHome from "./CustomerPages/CustomerHome";
 import CustomerBooking from "./CustomerPages/CustomerBookings";
 import SelectService from "./CustomerPages/SelectService";
 import ViewDetails from "./CustomerPages/ViewDetails";
-import BookingDetails from "./CustomerPages/BookingDetails";
 
 import ServiceLogin from "./Login/ServiceLogin";
 import ServiceDashboard from "./ServicePages/ServiceDashboard";
@@ -61,7 +60,6 @@ function App() {
           <Route path="bookings" element={<CustomerBooking />} />
           <Route path="select/service" element={<SelectService />} />
           <Route path="view/details" element={<ViewDetails />} />
-          <Route path="booking/details" element={<BookingDetails />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
         </Route>

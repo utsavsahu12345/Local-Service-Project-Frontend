@@ -27,7 +27,7 @@ const CustomerBookings = () => {
     if (!customerUsername) return;
     const fetchBookings = async () => {
       try {
-        const res = await axios.get(`${url}/book/service/${customerUsername}`);
+        const res = await axios.get(`${url}/service/book/service/${customerUsername}`);
         setBookings(res.data);
       } catch (err) {
         console.error("Booking fetch error:", err);
@@ -41,7 +41,7 @@ const CustomerBookings = () => {
   const handleFeedback = async (id, feedback) => {
     if (!feedback.trim()) return alert("Please write feedback first!");
     try {
-      await axios.post(`${url}/book/service/${id}/feedback`, { feedback });
+      await axios.post(`${url}/service/book/${id}/feedback`, { feedback });
       alert("Feedback submitted!");
       setBookings((prev) =>
         prev.map((b) =>
@@ -59,7 +59,7 @@ const CustomerBookings = () => {
     if (!window.confirm("Are you sure you want to cancel this booking?")) return;
 
     try {
-      await axios.put(`${url}/booking/${id}/cancel`);
+      await axios.put(`${url}/service/booking/${id}/cancel`);
       alert("Booking cancelled successfully!");
       setBookings((prev) =>
         prev.map((b) => (b._id === id ? { ...b, status: "cancel" } : b))

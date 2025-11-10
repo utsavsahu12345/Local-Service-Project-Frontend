@@ -60,7 +60,7 @@ const SelectService = () => {
         );
       }
 
-      await axios.post(`${url}/customer/booking/completed`,
+      await axios.post(`${url}/service/booking/completed`,
         {
           customerusername: user.username,
           customername: user.fullName || user.name,

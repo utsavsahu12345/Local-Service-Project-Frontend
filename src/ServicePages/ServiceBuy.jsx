@@ -25,7 +25,7 @@ const CustomerHome = () => {
 
   useEffect(() => {
     axios
-      .get(`${url}/customer/home`)
+      .get(`${url}/customer/service`)
       .then((res) => setServices(res.data))
       .catch((err) => console.log(err));
   }, []);

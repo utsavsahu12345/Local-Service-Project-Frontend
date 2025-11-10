@@ -52,7 +52,7 @@ const ServiceDashboard = () => {
 
     const fetchServices = async () => {
       try {
-        const res = await fetch(`${url}/service/home/${Username}`, {
+        const res = await fetch(`${url}/service/dashboard/${Username}`, {
           credentials: "include",
         });
         const data = await res.json();

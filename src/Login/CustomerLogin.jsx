@@ -34,7 +34,7 @@ export default function CustomerLogin() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(`${url}/customer/signup`, signupData, {
+      const res = await axios.post(`${url}/customer/auth/signup`, signupData, {
         withCredentials: true,
       });
       alert(res.data.message);
@@ -51,7 +51,7 @@ export default function CustomerLogin() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${url}/customer/verify-otp`, otpData, {
+      const res = await axios.post(`${url}/customer/auth/verify-otp`, otpData, {
         withCredentials: true,
       });
       alert(res.data.message);
@@ -65,7 +65,7 @@ export default function CustomerLogin() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${url}/customer/login`, loginData, {
+      const res = await axios.post(`${url}/customer/auth/login`, loginData, {
         withCredentials: true,
       });
       alert(res.data.message);

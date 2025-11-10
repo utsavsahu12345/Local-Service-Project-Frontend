@@ -13,7 +13,7 @@ const OTPModal = ({ bookingId, email, onVerified, onClose }) => {
     try {
       setLoading(true);
       const res = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/booking/verify-otp/${bookingId}`,
+        `${import.meta.env.VITE_SERVER_URL}/service/booking/verify-otp/${bookingId}`,
         { otp }
       );
 
@@ -98,7 +98,7 @@ const ServiceBooking = () => {
 
   const updateStatus = async (id, newStatus) => {
     try {
-      await axios.put(`${url}/booking/status/${id}`, { status: newStatus });
+      await axios.put(`${url}/service/booking/status/${id}`, { status: newStatus });
       setBookings((prev) =>
         prev.map((b) => (b._id === id ? { ...b, status: newStatus } : b))
       );
@@ -110,9 +110,9 @@ const ServiceBooking = () => {
   const markCompletedWithOTP = async (booking) => {
     try {
       setSendingOTP(true);
-      const res = await axios.post(`${url}/booking/send-otp/${booking._id}`);
+      const res = await axios.post(`${url}/service/booking/send-otp/${booking._id}`);
       if (res.data.success) {
-        alert("📩 OTP sent successfully to customer email!");
+        alert("OTP sent successfully to customer email!");
         setOtpBooking(booking);
       } else {
         alert("Failed to send OTP: " + (res.data.message || "Unknown error"));

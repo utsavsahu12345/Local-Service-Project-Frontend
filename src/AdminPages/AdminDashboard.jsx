@@ -14,9 +14,9 @@ const AdminDashboard = () => {
     setLoading(true); // ✅ jab refresh click kare tab loading start
     try {
       const [customerRes, serviceRes, bookingRes] = await Promise.all([
-        axios.get(`${url}/api/customercount`),
-        axios.get(`${url}/api/servicecount`),
-        axios.get(`${url}/api/pendingbookings`),
+        axios.get(`${url}/admin/api/customercount`),
+        axios.get(`${url}/admin/api/servicecount`),
+        axios.get(`${url}/admin/api/pendingbookings`),
       ]);
 
       setCustomerCount(customerRes.data.totalCustomers);

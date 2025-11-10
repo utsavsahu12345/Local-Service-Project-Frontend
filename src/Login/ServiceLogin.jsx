@@ -35,7 +35,7 @@ export default function ServiceLogin() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(`${url}/service/signup`, signupData, {
+      const res = await axios.post(`${url}/service/auth/signup`, signupData, {
         withCredentials: true,
       });
       alert(res.data.message);
@@ -52,7 +52,7 @@ export default function ServiceLogin() {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${url}/service/verify-otp`, otpData, {
+      const res = await axios.post(`${url}/service/auth/verify-otp`, otpData, {
         withCredentials: true,
       });
       alert(res.data.message);
@@ -66,7 +66,7 @@ export default function ServiceLogin() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${url}/service/login`, loginData, {
+      const res = await axios.post(`${url}/service/auth/login`, loginData, {
         withCredentials: true,
       });
       alert(res.data.message);
