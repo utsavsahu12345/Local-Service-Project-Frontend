@@ -11,6 +11,7 @@ function SignupOtpPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [userRole, setUserRole] = useState("");
+  const url = import.meta.env.VITE_SERVER_URL;
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -31,7 +32,7 @@ function SignupOtpPage() {
     setLoading(true);
     setMessage("");
     try {
-      const res = await axios.post("http://localhost:5000/signup", formData);
+      const res = await axios.post(`${url}/signup`, formData);
       setUserId(res.data.userId);
       setUserRole(formData.role);
       setMessage("OTP sent to your email!");
