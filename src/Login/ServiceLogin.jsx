@@ -20,6 +20,7 @@ export default function ServiceLogin() {
   const [otpData, setOtpData] = useState({ userId: "", otp: "" });
   const [showOtp, setShowOtp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ text: "", type: "" }); // type: "error" | "success"
   const url = import.meta.env.VITE_SERVER_URL;
 
   // -------------------- HANDLERS --------------------
@@ -34,15 +35,19 @@ export default function ServiceLogin() {
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setMessage({ text: "", type: "" });
     try {
       const res = await axios.post(`${url}/service/auth/signup`, signupData, {
         withCredentials: true,
       });
-      alert(res.data.message);
+      setMessage({ text: res.data.message, type: "success" });
       setOtpData({ ...otpData, userId: res.data.userId });
       setShowOtp(true);
     } catch (err) {
-      alert(err.response?.data?.message || "Signup failed");
+      setMessage({
+        text: err.response?.data?.message || "Signup failed",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -51,28 +56,40 @@ export default function ServiceLogin() {
   // -------------------- VERIFY OTP --------------------
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
+    setMessage({ text: "", type: "" });
     try {
       const res = await axios.post(`${url}/service/auth/verify-otp`, otpData, {
         withCredentials: true,
       });
-      alert(res.data.message);
-      window.location.href = "/service/dashboard";
+      setMessage({ text: res.data.message, type: "success" });
+      setTimeout(() => {
+        window.location.href = "/service/dashboard";
+      }, 1000);
     } catch (err) {
-      alert(err.response?.data?.message || "Invalid OTP");
+      setMessage({
+        text: err.response?.data?.message || "Invalid OTP",
+        type: "error",
+      });
     }
   };
 
   // -------------------- LOGIN --------------------
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setMessage({ text: "", type: "" });
     try {
       const res = await axios.post(`${url}/service/auth/login`, loginData, {
         withCredentials: true,
       });
-      alert(res.data.message);
-      window.location.href = "/service/dashboard";
+      setMessage({ text: res.data.message, type: "success" });
+      setTimeout(() => {
+        window.location.href = "/service/dashboard";
+      }, 1000);
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      setMessage({
+        text: err.response?.data?.message || "Login failed",
+        type: "error",
+      });
     }
   };
 
@@ -84,7 +101,17 @@ export default function ServiceLogin() {
           {showOtp ? "Verify OTP" : isLogin ? "Login" : "Signup"}
         </h2>
 
-        {/* OTP Verification */}
+        {/* -------------------- MESSAGE DISPLAY -------------------- */}
+        {message.text && (
+          <div
+            className={`auth-message ${
+              message.type === "error" ? "error" : "success"
+            }`}
+          >
+            {message.text}
+          </div>
+        )}
+
         {showOtp ? (
           <form onSubmit={handleVerifyOtp} className="auth-form">
             <label className="auth-label">
@@ -102,7 +129,6 @@ export default function ServiceLogin() {
             </button>
           </form>
         ) : isLogin ? (
-          // -------------------- LOGIN FORM --------------------
           <form onSubmit={handleLoginSubmit} className="auth-form">
             <label className="auth-label">
               Username or Email
@@ -145,7 +171,6 @@ export default function ServiceLogin() {
             </p>
           </form>
         ) : (
-          // -------------------- SIGNUP FORM --------------------
           <form onSubmit={handleSignupSubmit} className="auth-form">
             <label className="auth-label">
               Full name
@@ -192,7 +217,6 @@ export default function ServiceLogin() {
               />
             </label>
 
-            {/* 🟢 GENDER FIELD */}
             <label className="auth-label">
               Gender
               <select
@@ -207,7 +231,6 @@ export default function ServiceLogin() {
               </select>
             </label>
 
-            {/* 🟢 LOCATION FIELD */}
             <label className="auth-label">
               Location
               <input

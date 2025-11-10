@@ -5,6 +5,7 @@ import "./CustomerService.css";
 export default function CustomerLogin() {
   const [isLogin, setIsLogin] = useState(true);
   const url = import.meta.env.VITE_SERVER_URL;
+
   const [signupData, setSignupData] = useState({
     fullName: "",
     username: "",
@@ -14,18 +15,25 @@ export default function CustomerLogin() {
     gender: "",
     location: "",
   });
+
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
+
   const [otpData, setOtpData] = useState({ userId: "", otp: "" });
   const [showOtp, setShowOtp] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // State for messages
+  const [message, setMessage] = useState({ text: "", type: "" }); // type: "error" | "success"
+
   const handleSignupChange = (e) =>
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
+
   const handleLoginChange = (e) =>
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
+
   const handleOtpChange = (e) =>
     setOtpData({ ...otpData, [e.target.name]: e.target.value });
 
@@ -33,15 +41,21 @@ export default function CustomerLogin() {
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setMessage({ text: "", type: "" });
+
     try {
       const res = await axios.post(`${url}/customer/auth/signup`, signupData, {
         withCredentials: true,
       });
-      alert(res.data.message);
+
+      setMessage({ text: res.data.message, type: "success" });
       setOtpData({ ...otpData, userId: res.data.userId });
       setShowOtp(true);
     } catch (err) {
-      alert(err.response?.data?.message || "Signup failed");
+      setMessage({
+        text: err.response?.data?.message || "Signup failed",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -50,28 +64,45 @@ export default function CustomerLogin() {
   // -------------------- VERIFY OTP --------------------
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
+    setMessage({ text: "", type: "" });
+
     try {
       const res = await axios.post(`${url}/customer/auth/verify-otp`, otpData, {
         withCredentials: true,
       });
-      alert(res.data.message);
-      window.location.href = "/customer/home";
+
+      setMessage({ text: res.data.message, type: "success" });
+      // Redirect after short delay
+      setTimeout(() => {
+        window.location.href = "/customer/home";
+      }, 1000);
     } catch (err) {
-      alert(err.response?.data?.message || "Invalid OTP");
+      setMessage({
+        text: err.response?.data?.message || "Invalid OTP",
+        type: "error",
+      });
     }
   };
 
   // -------------------- LOGIN --------------------
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setMessage({ text: "", type: "" });
+
     try {
       const res = await axios.post(`${url}/customer/auth/login`, loginData, {
         withCredentials: true,
       });
-      alert(res.data.message);
-      window.location.href = "/customer/home";
+
+      setMessage({ text: res.data.message, type: "success" });
+      setTimeout(() => {
+        window.location.href = "/customer/home";
+      }, 1000);
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      setMessage({
+        text: err.response?.data?.message || "Login failed",
+        type: "error",
+      });
     }
   };
 
@@ -81,6 +112,17 @@ export default function CustomerLogin() {
         <h2 className="auth-title">
           {showOtp ? "Verify OTP" : isLogin ? "Login" : "Signup"}
         </h2>
+
+        {/* -------------------- MESSAGE DISPLAY -------------------- */}
+        {message.text && (
+          <div
+            className={`auth-message ${
+              message.type === "error" ? "error" : "success"
+            }`}
+          >
+            {message.text}
+          </div>
+        )}
 
         {showOtp ? (
           <form onSubmit={handleVerifyOtp} className="auth-form">

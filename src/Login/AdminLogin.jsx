@@ -6,7 +6,8 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
-    const url = import.meta.env.VITE_SERVER_URL;
+  const [message, setMessage] = useState({ text: "", type: "" }); // type: "error" | "success"
+  const url = import.meta.env.VITE_SERVER_URL;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,8 +17,11 @@ const AdminLogin = () => {
     e.preventDefault();
     const { username, password } = formData;
 
+    // Clear previous message
+    setMessage({ text: "", type: "" });
+
     if (!username.trim() || !password) {
-      alert("Please enter username and password.");
+      setMessage({ text: "Please enter username and password.", type: "error" });
       return;
     }
 
@@ -28,20 +32,22 @@ const AdminLogin = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
-        credentials: "include", // 🔑 HTTP-only cookie ke liye
+        credentials: "include",
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        alert(data.message || "Login successful");
-        navigate("/admin/dashboard");
+        setMessage({ text: data.message || "Login successful", type: "success" });
+        setTimeout(() => {
+          navigate("/admin/dashboard");
+        }, 1000); // small delay to show success message
       } else {
-        alert(data.message || "Login failed");
+        setMessage({ text: data.message || "Login failed", type: "error" });
       }
     } catch (error) {
       console.error(error);
-      alert("Server error. Please try again.");
+      setMessage({ text: "Server error. Please try again.", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -51,6 +57,16 @@ const AdminLogin = () => {
     <div className="login-container d-flex justify-content-center align-items-center vh-100">
       <div className="login-card shadow-lg p-4 rounded">
         <h2 className="text-center mb-4 fw-bold">🔐 Admin Login</h2>
+
+        {/* -------------------- MESSAGE DISPLAY -------------------- */}
+        {message.text && (
+          <div
+            className={`auth-message ${message.type === "error" ? "error" : "success"}`}
+          >
+            {message.text}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label fw-semibold">Username</label>

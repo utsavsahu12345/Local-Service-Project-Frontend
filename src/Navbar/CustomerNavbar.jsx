@@ -19,6 +19,7 @@ const CustomerNavbar = () => {
           withCredentials: true, // ✅ send cookie
         });
         setUser(res.data.payload);
+        console.log("Fetched user:", res.data.payload);
         if (res.data.payload.role !== "Customer") {
           navigate("/customer/login");
         }
