@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const CustomerBookings = () => {
@@ -6,6 +7,7 @@ const CustomerBookings = () => {
   const [customerUsername, setCustomerUsername] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const url = import.meta.env.VITE_SERVER_URL;
 
   useEffect(() => {
@@ -27,7 +29,9 @@ const CustomerBookings = () => {
     if (!customerUsername) return;
     const fetchBookings = async () => {
       try {
-        const res = await axios.get(`${url}/customer/book/service/${customerUsername}`);
+        const res = await axios.get(
+          `${url}/customer/book/service/${customerUsername}`
+        );
         setBookings(res.data);
       } catch (err) {
         console.error("Booking fetch error:", err);
@@ -41,7 +45,9 @@ const CustomerBookings = () => {
   const handleFeedback = async (id, feedback) => {
     if (!feedback.trim()) return alert("Please write feedback first!");
     try {
-      await axios.post(`${url}/customer/book/service/${id}/feedback`, { feedback });
+      await axios.post(`${url}/customer/book/service/${id}/feedback`, {
+        feedback,
+      });
       alert("Feedback submitted!");
       setBookings((prev) =>
         prev.map((b) =>
@@ -56,7 +62,8 @@ const CustomerBookings = () => {
 
   // ✅ Cancel booking handler
   const handleCancel = async (id) => {
-    if (!window.confirm("Are you sure you want to cancel this booking?")) return;
+    if (!window.confirm("Are you sure you want to cancel this booking?"))
+      return;
 
     try {
       await axios.put(`${url}/customer/booking/${id}/cancel`);
@@ -161,13 +168,17 @@ const CustomerBookings = () => {
           </div>
         ) : (
           <div style={styles.noBookings}>
-            <div style={styles.noIcon}>📅</div>
             <h3>No More Bookings</h3>
             <p>
               You have no other bookings right now. Time to schedule something
               great!
             </p>
-            <button style={styles.bookBtn}>Book a Service</button>
+            <button
+              style={styles.bookBtn}
+              onClick={() => navigate("/customer/service")}
+            >
+              Book a Service
+            </button>
           </div>
         )}
       </div>

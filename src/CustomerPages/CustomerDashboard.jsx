@@ -1,44 +1,65 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CustomerDashboard = () => {
   const [popularServices, setPopularServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-  fetch("http://localhost:5000/customer/popular-services", {
-    method: "GET",
-    credentials: "include", // ✅ Cookie / Token bhejega
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error("Unauthorized");
-      return res.json();
+    fetch("http://localhost:5000/customer/popular-services", {
+      method: "GET",
+      credentials: "include",
     })
-    .then((data) => {
-      setPopularServices(Array.isArray(data) ? data : []);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error("Error fetching services:", err);
-      setPopularServices([]);
-      setLoading(false);
-    });
-}, []);
+      .then((res) => {
+        if (!res.ok) throw new Error("Unauthorized");
+        return res.json();
+      })
+      .then((data) => {
+        setPopularServices(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching services:", err);
+        setPopularServices([]);
+        setLoading(false);
+      });
+  }, []);
 
+  // ✅ Handle feature card click
+  const handleFeatureClick = (title) => {
+    if (title === "About Us") {
+      navigate("/customer/about");
+    }
+    if (title === "Contact Support") {
+      navigate("/customer/contact");
+    }
+    if (title === "Explore Services") {
+      navigate("/customer/service");
+    }
+    if (title === "View My Bookings") {
+      navigate("/customer/bookings");
+    }
+  };
 
   return (
-    <div style={styles.container}>
+    <div className="container" style={styles.container}>
       {/* Hero Section */}
       <div style={styles.hero}>
-        <h1 style={styles.heading}>Welcome back, Utsav 👋</h1>
+        <h1 style={styles.heading}>Welcome Back 👋</h1>
         <p style={styles.subtext}>
-          Explore new services and manage your bookings easily.
+          Discover top-rated services and book your next appointment in seconds.
         </p>
       </div>
 
       {/* Feature Cards */}
       <div style={styles.featuresContainer}>
         {featureItems.map((item, index) => (
-          <div key={index} style={styles.featureCard}>
+          <div
+            key={index}
+            style={styles.featureCard}
+            onClick={() => handleFeatureClick(item.title)}
+          >
             <div style={styles.icon}>{item.icon}</div>
             <h3 style={styles.featureTitle}>{item.title}</h3>
             <p style={styles.featureText}>{item.text}</p>
@@ -54,13 +75,26 @@ const CustomerDashboard = () => {
         <div style={styles.servicesGrid}>
           {popularServices.map((service) => (
             <div key={service._id} style={styles.serviceCard}>
-              <img
-                src={`data:${service.image.contentType};base64,${arrayBufferToBase64(
-                  service.image.data.data
-                )}`}
-                alt={service.service}
-                style={styles.serviceImage}
-              />
+              {service.image ? (
+                <img
+                  src={service.image}
+                  alt={service.service}
+                  style={styles.serviceImage}
+                />
+              ) : (
+                <div
+                  style={{
+                    ...styles.serviceImage,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#f0f0f0",
+                  }}
+                >
+                  <span style={{ color: "#888" }}>No Image</span>
+                </div>
+              )}
+
               <div style={styles.serviceInfo}>
                 <h3 style={styles.serviceName}>{service.service}</h3>
                 <p style={styles.serviceDesc}>{service.description}</p>
@@ -88,28 +122,17 @@ const CustomerDashboard = () => {
   );
 };
 
-// Helper: convert image Buffer to base64
-const arrayBufferToBase64 = (buffer) => {
-  let binary = "";
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return window.btoa(binary);
-};
-
-// Feature items for dashboard
+// ✅ Updated Feature items (Replaced “Book a New Service” → “About Us”)
 const featureItems = [
-  {
-    icon: "💇",
-    title: "Book a New Service",
-    text: "Find and schedule your next appointment.",
-  },
   {
     icon: "🔍",
     title: "Explore Services",
     text: "Browse through our popular categories.",
+  },
+  {
+    icon: "🧾",
+    title: "View My Bookings",
+    text: "Check your upcoming and past appointments.",
   },
   {
     icon: "💬",
@@ -117,25 +140,23 @@ const featureItems = [
     text: "Get help and answers to your questions.",
   },
   {
-    icon: "🧾",
-    title: "View My Bookings",
-    text: "Check your upcoming and past appointments.",
+    icon: "ℹ️",
+    title: "About Us",
+    text: "Learn more about who we are and what we do.",
   },
 ];
 
-// Inline Styles
 const styles = {
   container: {
     fontFamily: "'Poppins', sans-serif",
     backgroundColor: "#f9fbff",
-    padding: "40px",
+    marginTop: "20px",
     minHeight: "100vh",
   },
   hero: {
     background: "linear-gradient(90deg, #e0f0ff, #ffffff)",
     padding: "40px",
     borderRadius: "16px",
-    textAlign: "center",
     marginBottom: "30px",
   },
   heading: {
@@ -160,7 +181,8 @@ const styles = {
     padding: "25px",
     textAlign: "center",
     boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-    transition: "transform 0.3s ease",
+    cursor: "pointer",
+    transition: "transform 0.2s",
   },
   icon: {
     fontSize: "2rem",

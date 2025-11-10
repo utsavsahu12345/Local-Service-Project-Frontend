@@ -7,57 +7,68 @@ body, html {
   background: #f6faf7;
 }
 
-/* Hero Section */
+/* Hero Section - Left Image, Right Text */
 .hero {
-  background: url("../assets/hero.png") no-repeat center center/cover;
-  height: 80vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  color: white;
-  position: relative;
+  justify-content: space-between;
+  height: 70vh;
+  background: #f6faf7;
 }
-.overlay {
-  background: rgba(0, 0, 0, 0.280);
-  position: absolute;
-  top: 0; left: 0;
+
+.hero-left {
+  flex: 1;
+}
+
+.hero-left img {
   width: 100%;
-  height: 100%;
+  max-width: 500px;
+  border-radius: 20px;
+  object-fit: cover;
 }
-.hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 800px;
+
+.hero-right {
+  flex: 1;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #222;
   animation: fadeInUp 1.2s ease-out;
 }
-.hero-content h1 {
+
+.hero-right h1 {
   font-size: 3rem;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   font-weight: 800;
 }
-.hero-content p {
+
+.hero-right p {
   font-size: 1.3rem;
+  margin-bottom: 30px;
 }
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.explore-btn {
-  margin-top: 30px;
-  padding: 14px 38px;
+
+.explorebtn {
+  padding: 14px 8px;
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 500;
+  width: 200px;
   color: #fff;
   background: linear-gradient(90deg, #4a6cf7 0%, #6ed6ff 100%);
   border: none;
-  border-radius: 30px;
+  border-radius: 20px;
   cursor: pointer;
   transition: transform 0.2s;
+  align-self: center;
 }
+
 .explore-btn:hover {
   transform: scale(1.08);
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Layout */
@@ -216,18 +227,28 @@ body, html {
 }
 
 /* Responsive Layouts */
-
-/* <=1100px => 2 cards */
 @media (max-width: 1100px) {
   .col {
     flex: 1 1 calc(45% - 24px);
   }
 }
 
-/* <=768px => 2 cards */
 @media (max-width: 768px) {
-  .col {
-    flex: 1 1 calc(48% - 24px);
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    height: auto;
+  }
+  .hero-left img {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  .hero-right h1 {
+    font-size: 2rem;
+  }
+  .hero-right p {
+    font-size: 1rem;
   }
   .home-flex {
     flex-direction: column;
@@ -237,15 +258,8 @@ body, html {
     width: 100%;
     margin-bottom: 20px;
   }
-  .hero-content h1 {
-    font-size: 2.2rem;
-  }
-  .hero-content p {
-    font-size: 1rem;
-  }
 }
 
-/* <=576px => 1 card */
 @media (max-width: 576px) {
   .col {
     flex: 1 1 100%;

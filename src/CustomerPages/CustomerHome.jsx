@@ -2,6 +2,7 @@ import "./CustomerHome.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import heroImg from "../assets/hero.png";
 
 // Convert MongoDB image buffer to Base64
 function arrayBufferToBase64(buffer) {
@@ -44,20 +45,22 @@ const CustomerHome = () => {
   return (
     <div className="home-container">
       {/* Hero Section */}
-      <div className="hero">
-        <div className="overlay"></div>
-        <div className="hero-content">
-          <h1>Find & Buy Trusted Local Services</h1>
-          <p>Your one-stop marketplace for quality local service.</p>
+      <div className="hero container">
+        <div className="hero-left">
+          <img src={heroImg} alt="Local Services" />
+        </div>
+        <div className="hero-right">
+          <h1>Connect with the Best Local Experts Instantly</h1>
+          <p>From plumbers to tutors, find verified professionals near you.</p>
           <button
-            className="explore-btn"
+            className="explorebtn"
             onClick={() =>
               document
                 .querySelector(".home-main")
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            Explore Services
+            Find a Professional
           </button>
         </div>
       </div>
@@ -79,8 +82,12 @@ const CustomerHome = () => {
               <option value="Carpenter">Carpenter</option>
               <option value="Painter">Painter</option>
               <option value="AC Mechanic">AC Mechanic</option>
-              <option value="Refrigerator Repairer">Refrigerator Repairer</option>
-              <option value="Washing Machine Technician">Washing Machine Technician</option>
+              <option value="Refrigerator Repairer">
+                Refrigerator Repairer
+              </option>
+              <option value="Washing Machine Technician">
+                Washing Machine Technician
+              </option>
               <option value="RO Service">RO / Water Purifier Service</option>
               <option value="CCTV Installation">CCTV Installation</option>
               <option value="Geyser Repair">Geyser Repair</option>
@@ -129,13 +136,15 @@ const CustomerHome = () => {
         {/* Main Content */}
         <div className="home-main">
           <h1>Hire Local Services</h1>
-          <div className="sub-text">Find the best professionals for your needs</div>
+          <div className="sub-text">
+            Find the best professionals for your needs
+          </div>
 
           <div className="row">
             {filteredServices.length === 0 ? (
               <p className="no-services-message">
-                No services match your current filters. Try adjusting your search
-                criteria!
+                No services match your current filters. Try adjusting your
+                search criteria!
               </p>
             ) : (
               filteredServices.map((s) => (
@@ -158,15 +167,14 @@ const CustomerHome = () => {
                       <h3 className="service-title">{s.service}</h3>
 
                       <div className="name">
-                        <i class="fa-solid fa-user"></i> {s.name}
+                        <i className="fa-solid fa-user"></i> {s.name}
                       </div>
 
-                      <div className="experience">
-                        {s.description}
-                      </div>
+                      <div className="experience">{s.description}</div>
 
                       <div className="location">
-                        <i className="fa-solid fa-location-dot"></i> {s.location}
+                        <i className="fa-solid fa-location-dot"></i>{" "}
+                        {s.location}
                       </div>
 
                       <div className="btn-group">
