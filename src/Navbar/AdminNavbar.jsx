@@ -16,7 +16,9 @@ const TopNavbar = () => {
         const res = await axios.get(`${url}/me`, {
           withCredentials: true, // ✅ send cookie to verify admin session
         });
-        console.log("Admin verified:", res.data);
+        if (res.data.payload.role !== "Admin") {
+          navigate("/admin/login");
+        }
       } catch (err) {
         console.error("Failed to fetch user:", err);
         alert("Session expired or not logged in. Please log in again.");

@@ -18,6 +18,9 @@ const ServiceNavbar = () => {
           withCredentials: true,
         });
         setUser(res.data.payload);
+        if (res.data.payload.role !== "Service Provider") {
+          navigate("/Service/login");
+        }
       } catch (err) {
         console.error("Failed to fetch user:", err);
         alert("Session expired or not logged in. Please log in again.");

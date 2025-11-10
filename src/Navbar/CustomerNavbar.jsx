@@ -18,7 +18,10 @@ const CustomerNavbar = () => {
         const res = await axios.get(`${url}/me`, {
           withCredentials: true, // ✅ send cookie
         });
-        setUser(res.data.payload); // payload contains username, email, fullname, role
+        setUser(res.data.payload);
+        if (res.data.payload.role !== "Customer") {
+          navigate("/customer/login");
+        }
       } catch (err) {
         console.error("Failed to fetch user:", err);
         alert("Session expired or not logged in. Please log in again.");
