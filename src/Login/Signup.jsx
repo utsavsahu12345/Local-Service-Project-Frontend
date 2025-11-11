@@ -32,7 +32,7 @@ function SignupOtpPage() {
     setLoading(true);
     setMessage("");
     try {
-      const res = await axios.post(`${url}/signup`, formData);
+      const res = await axios.post(`${url}/user/signup`, formData);
       setUserId(res.data.userId);
       setUserRole(formData.role);
       setMessage("OTP sent to your email!");
@@ -49,7 +49,7 @@ function SignupOtpPage() {
     setLoading(true);
     setMessage("");
     try {
-      const res = await axios.post("http://localhost:5000/signup/verify-otp", {
+      const res = await axios.post(`${url}/user/signup/verify-otp`, {
         userId,
         otp,
       });

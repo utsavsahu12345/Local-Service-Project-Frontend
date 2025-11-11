@@ -12,14 +12,12 @@ import Contact from "./Navbar/Contact";
 import Login from "./Login/SignIn";
 import Signup from "./Login/Signup";
 
-import CustomerLogin from "./Login/CustomerLogin";
 import CustomerDashboard from "./CustomerPages/CustomerDashboard";
 import CustomerHome from "./CustomerPages/CustomerHome";
 import CustomerBooking from "./CustomerPages/CustomerBookings";
 import SelectService from "./CustomerPages/SelectService";
 import ViewDetails from "./CustomerPages/ViewDetails";
 
-import ServiceLogin from "./Login/ServiceLogin";
 import ServiceDashboard from "./ServicePages/ServiceDashboard";
 import ServiceAdd from "./ServicePages/ServiceAdd";
 import ServiceBooking from "./ServicePages/ServiceBooking";
@@ -28,7 +26,6 @@ import ServiceBook from "./ServicePages/ServiceBook";
 import ServiceDetails from "./ServicePages/ServiceDetails";
 import Booking from "./ServicePages/Book";
 
-import AdminLogin from "./Login/AdminLogin";
 import AdminDashboard from "./AdminPages/AdminDashboard";
 import AdminService from "./AdminPages/AdminService";
 import AdminBooking from "./AdminPages/AdminBooking";
@@ -49,9 +46,6 @@ function App() {
         {/* Login Pages */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/customer/login" element={<CustomerLogin />} />
-        <Route path="/service/login" element={<ServiceLogin />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* Customer Pages with Customer Navbar */}
         <Route path="/customer" element={<CustomerNavbar />}>

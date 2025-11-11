@@ -72,7 +72,7 @@ export default function RoleNavbar() {
                       marginRight: "10px",
                       fontWeight: "600",
                     }}>
-                    Sign In
+                    Login
                   </Link>
                   <Link
                     to="/signup"

@@ -44,28 +44,7 @@ const App = () => {
           <button onClick={handleScrollToRoles}>Get Started</button>
         </div>
       </header>
-
-      {/* --- Roles Section --- */}
-      <div className="roles" ref={roleRef}>
-        <Link to="/admin/login" className="rolecard">
-          <span className="roleicon"><i class="fa-solid fa-user-secret"></i></span>
-          <h3>Admin</h3>
-          <p>Oversee and manage the platform.</p>
-        </Link>
-
-        <Link to="/customer/login" className="rolecard">
-          <span className="roleicon"><i class="fa-solid fa-user-tie"></i></span>
-          <h3>Customer</h3>
-          <p>Find and book local services.</p>
-        </Link>
-
-        <Link to="/service/login" className="rolecard">
-          <span className="roleicon"><i class="fa-solid fa-screwdriver-wrench"></i></span>
-          <h3>Service Provider</h3>
-          <p>Offer your skills and services.</p>
-        </Link>
-      </div>
-
+      
       {/* --- Popular Services --- */}
       <section className="section popularservices">
         <h2 className="popular">Popular Services</h2>

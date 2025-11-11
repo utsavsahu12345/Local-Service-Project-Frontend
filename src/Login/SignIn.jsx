@@ -25,7 +25,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${url}/login`, formData, {
+      const res = await axios.post(`${url}/user/login`, formData, {
         withCredentials: true,
       });
 
@@ -34,12 +34,14 @@ export default function Login() {
       // ✅ Role comes from backend response
       const userRole = res.data.role;
 
-      if (userRole === "Customer") {
+      if (userRole === "Admin") {
+        navigate("/admin/dashboard");
+      } else if (userRole === "Customer") {
         navigate("/customer/home");
       } else if (userRole === "Service Provider") {
         navigate("/service/dashboard");
       } else {
-        navigate("/"); // fallback
+        navigate("/");
       }
     } catch (err) {
       setError(err.response?.data?.message || "Invalid credentials");
