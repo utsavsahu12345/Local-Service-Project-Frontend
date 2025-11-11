@@ -101,7 +101,11 @@ const CustomerDashboard = () => {
                 <p style={styles.servicePrice}>
                   ₹{service.visitingPrice} - ₹{service.maxPrice}
                 </p>
-                <button style={styles.bookButton}>Book Now</button>
+                <button
+                  style={styles.bookButton}
+                  onClick={() => navigate("/customer/service")}>
+                  Book Now
+                </button>
               </div>
             </div>
           ))}
@@ -116,7 +120,7 @@ const CustomerDashboard = () => {
             Use code <b>WELCOME20</b> at checkout.
           </p>
         </div>
-        <button style={styles.offerButton}>Book a Service</button>
+        <button style={styles.offerButton} onClick={() => navigate("/customer/service")}>Book a Service</button>
       </div>
     </div>
   );
