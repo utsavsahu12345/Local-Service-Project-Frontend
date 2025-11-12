@@ -1,82 +1,50 @@
-import { useNavigate } from 'react-router-dom';
-import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import React from "react";
+import img1 from "../assets/unnamed.png";
 import "../Navbar/RoleSelection.css";
 
-const Icon = ({ children }) => (
-  <div className="iconplaceholder">{children}</div>
-);
+const Icon = ({ children }) => <div className="iconplaceholder">{children}</div>;
 const Star = () => <span style={{ color: "#ffc107" }}>★</span>;
 
 const App = () => {
   const navigate = useNavigate();
-  const roleRef = useRef(null);
 
   const popularServices = [
-    {
-      icon: "🧹",
-      title: "Cleaning",
-      description: "Keep your home sparkling clean.",
-    },
-    {
-      icon: "💧",
-      title: "Plumbing",
-      description: "Fix leaks and clogs with ease.",
-    },
-    {
-      icon: "🎨",
-      title: "Painting",
-      description: "Refresh your space with a new coat.",
-    },
-    {
-      icon: "⚡",
-      title: "Electrician",
-      description: "Safe and reliable electrical services.",
-    },
-    {
-      icon: "🌿",
-      title: "Gardening",
-      description: "Transform your outdoor space.",
-    },
+    { icon: "🧹", title: "Cleaning", description: "Keep your home sparkling clean." },
+    { icon: "💧", title: "Plumbing", description: "Fix leaks and clogs with ease." },
+    { icon: "🎨", title: "Painting", description: "Refresh your space with a new coat." },
+    { icon: "⚡", title: "Electrician", description: "Safe and reliable electrical services." },
+    { icon: "🌿", title: "Gardening", description: "Transform your outdoor space." },
   ];
 
+  // ✅ Only 4 Steps Here
   const howItWorks = [
     {
       number: 1,
       title: "Choose Your Service",
-      description: "Select from a wide range of home services.",
+      description: "Select from a wide range of home services as per your needs.",
     },
     {
       number: 2,
-      title: "Select a Provider",
-      description:
-        "Browse profiles, ratings, and reviews to find the perfect fit.",
+      title: "Book Instantly",
+      description: "Pick your preferred time slot and book your service easily.",
     },
     {
       number: 3,
-      title: "Sit Back & Relax",
-      description: "A verified professional will arrive to get the job done.",
+      title: "Get It Done",
+      description: "Our trusted professionals arrive and complete the job efficiently.",
+    },
+    {
+      number: 4,
+      title: "Rate & Relax",
+      description: "Pay securely and share your feedback after completion.",
     },
   ];
 
   const testimonials = [
-    {
-      name: "Sarah J.",
-      rating: 5,
-      review: "Fantastic service! Highly recommend ServicePro.",
-      avatar: "SJ",
-    },
-    {
-      name: "Michael B.",
-      rating: 5,
-      review: "Used ServicePro for house cleaning — excellent job!",
-      avatar: "MB",
-    },
-    {
-      name: "Emily K.",
-      rating: 5,
-      review: "Very professional and reliable electrician service.",
-      avatar: "EK",
-    },
+    { name: "Sarah J.", rating: 5, review: "Fantastic service! Highly recommend ServicePro.", avatar: "SJ" },
+    { name: "Michael B.", rating: 5, review: "Used ServicePro for house cleaning — excellent job!", avatar: "MB" },
+    { name: "Emily K.", rating: 5, review: "Very professional and reliable electrician service.", avatar: "EK" },
   ];
 
   return (
@@ -84,12 +52,14 @@ const App = () => {
       {/* --- Header + Hero --- */}
       <header className="mainheader">
         <div className="herosection">
-          <h1>Find Trusted Local Experts Near You</h1>
-          <p className="herosubtitle">
-            We connect you with the best local professionals for any job, big or
-            small.
-          </p>
-          <button onClick={() => navigate("/signup")}>Get Started</button>
+          <div className="hero-text">
+            <h1>Find Trusted Local Experts Near You</h1>
+            <p>We connect you with the best local professionals for any job, big or small.</p>
+            <button onClick={() => navigate("/signup")}>Get Started</button>
+          </div>
+          <div className="hero-image">
+            <img src={img1} alt="Hero" />
+          </div>
         </div>
       </header>
 
@@ -148,7 +118,7 @@ const App = () => {
       <section className="section ctasection">
         <h3>Need help with home repairs?</h3>
         <p>Book a trusted expert today!</p>
-        <button className="btnprimary">Get Started</button>
+        <button className="btnprimary" onClick={() => navigate("/signup")}>Get Started</button>
       </section>
 
       {/* --- Footer --- */}
