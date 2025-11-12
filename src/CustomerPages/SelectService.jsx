@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SelectService = () => {
   const location = useLocation();
   const { service } = location.state || {};
-
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
   const url = import.meta.env.VITE_SERVER_URL;
+
   const [form, setForm] = useState({
     phone: "",
     location: "",
@@ -16,22 +18,18 @@ const SelectService = () => {
     description: "",
   });
 
-  // ✅ Always include credentials (so cookies are sent with requests)
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // ✅ Fetch user data from backend cookie
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${url}/me`, {
-          withCredentials: true,
-        });
-        setUser(res.data.payload); // token payload me username, email, etc.
+        const res = await axios.get(`${url}/me`, { withCredentials: true });
+        setUser(res.data.payload);
       } catch (err) {
         console.error("Failed to fetch user:", err.response?.data || err);
-        alert("Please log in again.");
+        toast.error("Please log in again!");
       } finally {
         setLoadingUser(false);
       }
@@ -53,14 +51,12 @@ const SelectService = () => {
       if (service.image?.data?.data) {
         const uint8Array = new Uint8Array(service.image.data.data);
         base64Image = btoa(
-          uint8Array.reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
+          uint8Array.reduce((data, byte) => data + String.fromCharCode(byte), "")
         );
       }
 
-      await axios.post(`${url}/customer/booking/completed`,
+      await axios.post(
+        `${url}/customer/booking/completed`,
         {
           customerusername: user.username,
           customername: user.fullName || user.name,
@@ -86,11 +82,11 @@ const SelectService = () => {
         { withCredentials: true }
       );
 
-      alert("Booking confirmed!");
+      toast.success("🎉 Booking confirmed successfully!");
       setForm({ phone: "", location: "", date: "", description: "" });
     } catch (err) {
       console.error("Booking Error:", err.response?.data || err);
-      alert("Error sending data");
+      toast.error("❌ Failed to send booking request");
     }
   };
 
@@ -122,7 +118,10 @@ const SelectService = () => {
   }
 
   return (
-    <div style={{ padding: 16, minHeight: "100vh", background: "#ededed" }}>
+    <div style={{ padding: 16, minHeight: "100vh", background: "#f3f6f9" }}>
+      {/* Toast Message Container */}
+      <ToastContainer position="top-center" autoClose={2500} />
+
       <div
         className="booking-card"
         style={{
@@ -130,7 +129,7 @@ const SelectService = () => {
           margin: "40px auto",
           background: "#fff",
           borderRadius: 16,
-          boxShadow: "0 2px 16px #0001",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
           padding: 32,
         }}
       >
@@ -159,10 +158,17 @@ const SelectService = () => {
                 }}
               />
               <div style={{ flex: 1 }}>
-                <h2 style={{ fontSize: 26, fontWeight: 700, marginBottom: 8 }}>
+                <h2
+                  style={{
+                    fontSize: 26,
+                    fontWeight: 700,
+                    marginBottom: 8,
+                    color: "#222",
+                  }}
+                >
                   {service.service}
                 </h2>
-                <div style={{ color: "#666", fontSize: 17, marginBottom: 8 }}>
+                <div style={{ color: "#555", fontSize: 17, marginBottom: 8 }}>
                   {service.description}
                 </div>
                 <div
@@ -178,13 +184,13 @@ const SelectService = () => {
                   </span>
                 </div>
                 <div style={{ color: "#666", fontSize: 16, marginBottom: 8 }}>
-                  <i className="fa-solid fa-location-dot"></i> {service.location}
+                  📍 {service.location}
                 </div>
                 <div
                   style={{
                     fontSize: 20,
                     fontWeight: 600,
-                    color: "#0099ee",
+                    color: "#007bff",
                     marginBottom: 4,
                   }}
                 >
@@ -199,7 +205,9 @@ const SelectService = () => {
               </div>
             </div>
 
-            <div style={{ borderTop: "1px solid #eee", margin: "32px 0 24px" }} />
+            <div
+              style={{ borderTop: "1px solid #eee", margin: "32px 0 24px" }}
+            />
 
             {/* --- Customer Form --- */}
             <div
@@ -210,89 +218,63 @@ const SelectService = () => {
                 display: "block",
               }}
             >
-              <h4 style={{ fontWeight: 700, marginBottom: 18 }}>
+              <h4
+                style={{
+                  fontWeight: 700,
+                  marginBottom: 18,
+                  color: "#333",
+                  fontSize: 20,
+                }}
+              >
                 Customer Details
               </h4>
               <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: 18 }}>
-                  <label
-                    style={{
-                      fontWeight: 500,
-                      marginBottom: 6,
-                      display: "block",
-                    }}
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="number"
-                    name="phone"
-                    placeholder="+91 00000 00000"
-                    required
-                    value={form.phone}
-                    onChange={handleChange}
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      border: "1px solid #ccc",
-                      fontSize: 16,
-                    }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: 18 }}>
-                  <label
-                    style={{
-                      fontWeight: 500,
-                      marginBottom: 6,
-                      display: "block",
-                    }}
-                  >
-                    Address Location
-                  </label>
-                  <input
-                    type="text"
-                    name="location"
-                    placeholder="Enter your full address"
-                    required
-                    value={form.location}
-                    onChange={handleChange}
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      border: "1px solid #ccc",
-                      fontSize: 16,
-                    }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: 18 }}>
-                  <label
-                    style={{
-                      fontWeight: 500,
-                      marginBottom: 6,
-                      display: "block",
-                    }}
-                  >
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    name="date"
-                    required
-                    value={form.date}
-                    onChange={handleChange}
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      border: "1px solid #ccc",
-                      fontSize: 16,
-                    }}
-                  />
-                </div>
+                {["phone", "location", "date"].map((field) => (
+                  <div key={field} style={{ marginBottom: 18 }}>
+                    <label
+                      style={{
+                        fontWeight: 500,
+                        marginBottom: 6,
+                        display: "block",
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      {field === "phone"
+                        ? "Phone Number"
+                        : field === "location"
+                        ? "Address Location"
+                        : "Date"}
+                    </label>
+                    <input
+                      type={field === "date" ? "date" : "text"}
+                      name={field}
+                      placeholder={
+                        field === "phone"
+                          ? "+91 00000 00000"
+                          : field === "location"
+                          ? "Enter your full address"
+                          : ""
+                      }
+                      required
+                      value={form[field]}
+                      onChange={handleChange}
+                      style={{
+                        width: "100%",
+                        padding: "12px 14px",
+                        borderRadius: 8,
+                        border: "1px solid #ccc",
+                        fontSize: 16,
+                        transition: "0.3s",
+                      }}
+                      onFocus={(e) =>
+                        (e.target.style.border = "1px solid #007bff")
+                      }
+                      onBlur={(e) =>
+                        (e.target.style.border = "1px solid #ccc")
+                      }
+                    />
+                  </div>
+                ))}
 
                 <div style={{ marginBottom: 28 }}>
                   <label
@@ -326,7 +308,7 @@ const SelectService = () => {
                   type="submit"
                   style={{
                     width: "100%",
-                    background: "#09f",
+                    background: "linear-gradient(90deg, #007bff, #00b4d8)",
                     color: "#fff",
                     fontWeight: 600,
                     fontSize: 18,
@@ -334,7 +316,16 @@ const SelectService = () => {
                     padding: "14px 0",
                     border: "none",
                     cursor: "pointer",
+                    transition: "0.3s",
                   }}
+                  onMouseOver={(e) =>
+                    (e.target.style.background =
+                      "linear-gradient(90deg, #0062cc, #0096c7)")
+                  }
+                  onMouseOut={(e) =>
+                    (e.target.style.background =
+                      "linear-gradient(90deg, #007bff, #00b4d8)")
+                  }
                 >
                   Confirm Booking
                 </button>

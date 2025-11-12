@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./ServiceBook.css";
 
 const SelectService = () => {
   const location = useLocation();
   const { service } = location.state || {};
-
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
   const url = import.meta.env.VITE_SERVER_URL;
+
   const [form, setForm] = useState({
     phone: "",
     location: "",
@@ -16,27 +19,20 @@ const SelectService = () => {
     description: "",
   });
 
-  // ✅ Always include credentials (so cookies are sent with requests)
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    // ✅ Fetch user data from backend cookie
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${url}/me`, {
-          withCredentials: true,
-        });
-        setUser(res.data.payload); // token payload me username, email, etc.
+        const res = await axios.get(`${url}/me`, { withCredentials: true });
+        setUser(res.data.payload);
       } catch (err) {
-        console.error("Failed to fetch user:", err.response?.data || err);
-        alert("Please log in again.");
+        toast.error("Please log in again.");
       } finally {
         setLoadingUser(false);
       }
     };
-
     fetchUser();
   }, []);
 
@@ -60,7 +56,8 @@ const SelectService = () => {
         );
       }
 
-      await axios.post(`${url}/service/booking/completed`,
+      await axios.post(
+        `${url}/service/booking/completed`,
         {
           customerusername: user.username,
           customername: user.fullName || user.name,
@@ -86,11 +83,11 @@ const SelectService = () => {
         { withCredentials: true }
       );
 
-      alert("Booking confirmed!");
+      toast.success("✅ Booking Confirmed Successfully!", { position: "top-center" });
       setForm({ phone: "", location: "", date: "", description: "" });
     } catch (err) {
       console.error("Booking Error:", err.response?.data || err);
-      alert("Error sending data");
+      toast.error("❌ Error sending data. Please try again.", { position: "top-center" });
     }
   };
 
@@ -105,246 +102,81 @@ const SelectService = () => {
     return `data:${img.contentType};base64,${base64String}`;
   };
 
-  if (loadingUser) {
+  if (loadingUser)
     return (
-      <div style={{ textAlign: "center", marginTop: 100, fontSize: 18 }}>
-        Loading user details...
-      </div>
+      <div className="loading-text">Loading user details...</div>
     );
-  }
 
-  if (!user) {
+  if (!user)
     return (
-      <div style={{ textAlign: "center", marginTop: 100, fontSize: 18 }}>
-        Please log in to continue.
-      </div>
+      <div className="loading-text">Please log in to continue.</div>
     );
-  }
 
   return (
-    <div style={{ padding: 16, minHeight: "100vh", background: "#ededed" }}>
-      <div
-        className="booking-card"
-        style={{
-          maxWidth: 900,
-          margin: "40px auto",
-          background: "#fff",
-          borderRadius: 16,
-          boxShadow: "0 2px 16px #0001",
-          padding: 32,
-        }}
-      >
+    <div className="select-service-container">
+      <ToastContainer />
+      <div className="booking-card">
         {service ? (
-          <div style={{ width: "100%" }}>
-            {/* --- Service Info --- */}
-            <div
-              style={{
-                display: "flex",
-                gap: 32,
-                alignItems: "center",
-                flexWrap: "wrap",
-                marginBottom: 32,
-              }}
-            >
+          <>
+            <div className="service-info">
               <img
                 src={getImageSrc(service.image)}
                 alt={service.service}
-                style={{
-                  width: 180,
-                  height: 180,
-                  objectFit: "cover",
-                  borderRadius: 12,
-                  background: "#f5f5f5",
-                  boxShadow: "0 2px 8px #0001",
-                }}
+                className="service-img"
               />
-              <div style={{ flex: 1 }}>
-                <h2 style={{ fontSize: 26, fontWeight: 700, marginBottom: 8 }}>
-                  {service.service}
-                </h2>
-                <div style={{ color: "#666", fontSize: 17, marginBottom: 8 }}>
-                  {service.description}
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    marginBottom: 8,
-                  }}
-                >
-                  <span style={{ color: "#222", fontWeight: 500 }}>
-                    👤 {service.name} ({service.experience} years experience)
-                  </span>
-                </div>
-                <div style={{ color: "#666", fontSize: 16, marginBottom: 8 }}>
-                  <i className="fa-solid fa-location-dot"></i> {service.location}
-                </div>
-                <div
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 600,
-                    color: "#0099ee",
-                    marginBottom: 4,
-                  }}
-                >
+              <div className="service-details">
+                <h2>{service.service}</h2>
+                <p className="service-desc">{service.description}</p>
+                <p className="service-provider">
+                  👤 {service.name} ({service.experience} years)
+                </p>
+                <p className="service-loc"> {service.location}</p>
+                <p className="service-price">
                   ₹{service.visitingPrice}{" "}
-                  <span style={{ fontSize: 15, color: "#888", marginLeft: 8 }}>
-                    Visiting Price
-                  </span>
-                  <span style={{ fontSize: 15, color: "#888", marginLeft: 8 }}>
-                    Max Price ₹{service.maxPrice}
-                  </span>
-                </div>
+                  <span>Visiting</span> | Max ₹{service.maxPrice}
+                </p>
               </div>
             </div>
 
-            <div style={{ borderTop: "1px solid #eee", margin: "32px 0 24px" }} />
-
-            {/* --- Customer Form --- */}
-            <div
-              style={{
-                width: "100%",
-                maxWidth: 500,
-                margin: "0 auto",
-                display: "block",
-              }}
-            >
-              <h4 style={{ fontWeight: 700, marginBottom: 18 }}>
-                Customer Details
-              </h4>
-              <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: 18 }}>
-                  <label
-                    style={{
-                      fontWeight: 500,
-                      marginBottom: 6,
-                      display: "block",
-                    }}
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="number"
-                    name="phone"
-                    placeholder="+91 00000 00000"
-                    required
-                    value={form.phone}
-                    onChange={handleChange}
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      border: "1px solid #ccc",
-                      fontSize: 16,
-                    }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: 18 }}>
-                  <label
-                    style={{
-                      fontWeight: 500,
-                      marginBottom: 6,
-                      display: "block",
-                    }}
-                  >
-                    Address Location
-                  </label>
-                  <input
-                    type="text"
-                    name="location"
-                    placeholder="Enter your full address"
-                    required
-                    value={form.location}
-                    onChange={handleChange}
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      border: "1px solid #ccc",
-                      fontSize: 16,
-                    }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: 18 }}>
-                  <label
-                    style={{
-                      fontWeight: 500,
-                      marginBottom: 6,
-                      display: "block",
-                    }}
-                  >
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    name="date"
-                    required
-                    value={form.date}
-                    onChange={handleChange}
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      border: "1px solid #ccc",
-                      fontSize: 16,
-                    }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: 28 }}>
-                  <label
-                    style={{
-                      fontWeight: 500,
-                      marginBottom: 6,
-                      display: "block",
-                    }}
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    name="description"
-                    placeholder="Enter any details for the service provider"
-                    required
-                    value={form.description}
-                    onChange={handleChange}
-                    style={{
-                      width: "100%",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      border: "1px solid #ccc",
-                      fontSize: 16,
-                      minHeight: 80,
-                      resize: "vertical",
-                    }}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  style={{
-                    width: "100%",
-                    background: "#09f",
-                    color: "#fff",
-                    fontWeight: 600,
-                    fontSize: 18,
-                    borderRadius: 8,
-                    padding: "14px 0",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Confirm Booking
-                </button>
-              </form>
-            </div>
-          </div>
+            <form onSubmit={handleSubmit} className="customer-form">
+              <h4>Customer Details</h4>
+              <input
+                type="number"
+                name="phone"
+                placeholder="+91 00000 00000"
+                required
+                value={form.phone}
+                onChange={handleChange}
+              />
+              <input
+                type="text"
+                name="location"
+                placeholder="Enter your full address"
+                required
+                value={form.location}
+                onChange={handleChange}
+              />
+              <input
+                type="date"
+                name="date"
+                required
+                value={form.date}
+                onChange={handleChange}
+              />
+              <textarea
+                name="description"
+                placeholder="Any details for the provider..."
+                required
+                value={form.description}
+                onChange={handleChange}
+              />
+              <button type="submit" className="confirm-btn">
+                Confirm Booking
+              </button>
+            </form>
+          </>
         ) : (
-          <div style={{ textAlign: "center", color: "#888", marginTop: 40 }}>
-            No service selected
-          </div>
+          <div className="no-service">No service selected</div>
         )}
       </div>
     </div>

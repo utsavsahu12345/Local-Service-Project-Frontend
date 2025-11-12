@@ -334,3 +334,19 @@
     transform: scale(1);
   }
 }
+/* Toastify customization */
+.Toastify__toast {
+  border-radius: 12px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  color: #fff;
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(90deg, #ef4444, #b91c1c);
+  color: #fff;
+}

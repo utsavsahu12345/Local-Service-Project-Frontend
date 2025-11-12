@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./CustomerBookings.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CustomerBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -43,12 +46,12 @@ const CustomerBookings = () => {
 
   // ✅ Feedback submit handler
   const handleFeedback = async (id, feedback) => {
-    if (!feedback.trim()) return alert("Please write feedback first!");
+    if (!feedback.trim()) return toast.warning("Please write feedback first!");
     try {
       await axios.post(`${url}/customer/book/service/${id}/feedback`, {
         feedback,
       });
-      alert("Feedback submitted!");
+      toast.success("Feedback submitted successfully!");
       setBookings((prev) =>
         prev.map((b) =>
           b._id === id ? { ...b, feedbackStatus: true, feedback } : b
@@ -56,24 +59,21 @@ const CustomerBookings = () => {
       );
     } catch (err) {
       console.error("Feedback error:", err);
-      alert("Failed to submit feedback.");
+      toast.error("Failed to submit feedback.");
     }
   };
 
   // ✅ Cancel booking handler
   const handleCancel = async (id) => {
-    if (!window.confirm("Are you sure you want to cancel this booking?"))
-      return;
-
     try {
       await axios.put(`${url}/customer/booking/${id}/cancel`);
-      alert("Booking cancelled successfully!");
+      toast.info("Booking cancelled successfully!");
       setBookings((prev) =>
         prev.map((b) => (b._id === id ? { ...b, status: "cancel" } : b))
       );
     } catch (err) {
       console.error("Cancel error:", err);
-      alert("Failed to cancel booking.");
+      toast.error("Failed to cancel booking.");
     }
   };
 
@@ -81,72 +81,56 @@ const CustomerBookings = () => {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div style={styles.page}>
-      <h1 style={styles.title}>My Bookings</h1>
+    <div className="bookings-page">
+      <ToastContainer position="top-center" theme="colored" />
+      <h1 className="bookings-title">My Bookings</h1>
 
-      <div style={styles.container}>
+      <div className="bookings-container">
         {bookings.length > 0 ? (
-          <div style={styles.grid}>
+          <div className="bookings-grid">
             {bookings.map((b) => (
-              <div key={b._id} style={styles.card}>
+              <div key={b._id} className="booking-card">
                 <img
                   src={`data:${b.image.contentType};base64,${b.image.data}`}
                   alt={b.service}
-                  style={styles.image}
+                  className="booking-img"
                 />
 
-                <div style={styles.info}>
-                  <p style={styles.date}>
+                <div className="booking-info">
+                  <p className="booking-date">
                     {new Date(b.customerdate).toDateString()}
                   </p>
 
-                  <div style={styles.header}>
-                    <h3 style={styles.service}>{b.service}</h3>
-                    <span
-                      style={{
-                        ...styles.status,
-                        background:
-                          b.status === "completed"
-                            ? "#16a34a"
-                            : b.status === "pending"
-                            ? "#a0aec0"
-                            : b.status === "confirmed"
-                            ? "#007bff"
-                            : "#dc2626",
-                      }}
-                    >
-                      {b.status}
-                    </span>
+                  <div className="booking-header">
+                    <h3>{b.service}</h3>
+                    <span className={`status ${b.status}`}>{b.status}</span>
                   </div>
 
-                  <p style={styles.provider}>
+                  <p className="provider">
                     Provided by <strong>{b.providername}</strong>
                   </p>
-                  <p style={styles.price}>
+                  <p className="price">
                     ₹{b.visitingPrice} – ₹{b.maxPrice}
                   </p>
 
-                  {/* ✅ Cancel button if pending */}
                   {b.status === "pending" && (
                     <button
-                      style={styles.cancelBtn}
+                      className="cancel-btn"
                       onClick={() => handleCancel(b._id)}
                     >
                       Cancel Booking
                     </button>
                   )}
 
-                  {/* ✅ Feedback Section */}
                   {b.status === "completed" && !b.feedbackStatus && (
-                    <div style={styles.feedbackSection}>
-                      <label style={styles.label}>Share your experience</label>
+                    <div className="feedback-section">
+                      <label>Share your experience</label>
                       <textarea
                         id={`feedback-${b._id}`}
                         placeholder="Write your feedback..."
-                        style={styles.textarea}
                       ></textarea>
                       <button
-                        style={styles.submitBtn}
+                        className="submit-btn"
                         onClick={() =>
                           handleFeedback(
                             b._id,
@@ -160,23 +144,20 @@ const CustomerBookings = () => {
                   )}
 
                   {b.feedbackStatus && (
-                    <p style={styles.thank}>Thank you for your feedback ❤️</p>
+                    <p className="thank">Thank you for your feedback ❤️</p>
                   )}
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div style={styles.noBookings}>
+          <div className="no-bookings">
             <h3>No More Bookings</h3>
             <p>
               You have no other bookings right now. Time to schedule something
               great!
             </p>
-            <button
-              style={styles.bookBtn}
-              onClick={() => navigate("/customer/service")}
-            >
+            <button onClick={() => navigate("/customer/service")}>
               Book a Service
             </button>
           </div>
@@ -184,119 +165,6 @@ const CustomerBookings = () => {
       </div>
     </div>
   );
-};
-
-const styles = {
-  page: {
-    background: "#f5f6f8",
-    minHeight: "100vh",
-    padding: "2rem 0",
-    fontFamily: "Poppins, sans-serif",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: "1.8rem",
-    fontWeight: 600,
-    marginBottom: "1.5rem",
-    width: "90%",
-    maxWidth: "1200px",
-  },
-  container: {
-    width: "90%",
-    maxWidth: "1200px",
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
-    gap: "1.5rem",
-  },
-  card: {
-    background: "#fff",
-    borderRadius: "12px",
-    overflow: "hidden",
-    boxShadow: "0 3px 10px rgba(0,0,0,0.1)",
-    transition: "transform 0.2s ease",
-  },
-  image: {
-    width: "100%",
-    height: "200px",
-    objectFit: "cover",
-  },
-  info: { padding: "1rem 1.2rem" },
-  date: { fontSize: "0.85rem", color: "#555" },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  service: {
-    fontSize: "1.1rem",
-    fontWeight: 600,
-    margin: "0.3rem 0",
-  },
-  status: {
-    fontSize: "0.8rem",
-    padding: "4px 10px",
-    borderRadius: "8px",
-    color: "#fff",
-    fontWeight: 500,
-    textTransform: "capitalize",
-  },
-  provider: { fontSize: "0.9rem", color: "#444", margin: "0.3rem 0" },
-  price: { color: "#111", fontWeight: 600 },
-  feedbackSection: {
-    marginTop: "1rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5rem",
-  },
-  label: { fontSize: "0.9rem", color: "#333" },
-  textarea: {
-    resize: "none",
-    minHeight: "60px",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    padding: "8px",
-    fontSize: "0.9rem",
-  },
-  submitBtn: {
-    alignSelf: "flex-end",
-    background: "#007bff",
-    color: "white",
-    border: "none",
-    borderRadius: "6px",
-    padding: "8px 14px",
-    cursor: "pointer",
-  },
-  cancelBtn: {
-    background: "#dc2626",
-    color: "white",
-    border: "none",
-    borderRadius: "6px",
-    padding: "8px 14px",
-    cursor: "pointer",
-    marginTop: "10px",
-    fontWeight: 500,
-  },
-  thank: { marginTop: "0.5rem", color: "#16a34a", fontWeight: 600 },
-  noBookings: {
-    background: "#fff",
-    borderRadius: "12px",
-    textAlign: "center",
-    padding: "2rem",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-  },
-  noIcon: { fontSize: "2rem", marginBottom: "0.5rem" },
-  bookBtn: {
-    background: "#007bff",
-    color: "white",
-    padding: "8px 16px",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-  },
 };
 
 export default CustomerBookings;

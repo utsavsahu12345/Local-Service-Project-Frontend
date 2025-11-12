@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ServiceBooking.css";
 import Book from "../assets/Book.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // ================= OTP Modal =================
 const OTPModal = ({ bookingId, email, onVerified, onClose }) => {
@@ -18,15 +20,17 @@ const OTPModal = ({ bookingId, email, onVerified, onClose }) => {
       );
 
       if (res.data.success) {
-        alert("✅ " + res.data.message);
+        toast.success("✅ " + res.data.message, { position: "top-center" });
         onVerified();
         onClose();
       } else {
         setError(res.data.message || "Invalid OTP");
+        toast.error("❌ Invalid OTP", { position: "top-center" });
       }
     } catch (err) {
       console.error(err);
       setError("Verification failed. Try again.");
+      toast.error("⚠️ Verification failed. Try again.", { position: "top-center" });
     } finally {
       setLoading(false);
     }
@@ -76,6 +80,7 @@ const ServiceBooking = () => {
         setProviderUsername(res.data?.payload?.username || "");
       } catch (err) {
         console.error("Failed to fetch user:", err);
+        toast.error("⚠️ Failed to load user.", { position: "top-center" });
       }
     };
     fetchUser();
@@ -91,6 +96,7 @@ const ServiceBooking = () => {
         setBookings(res.data);
       } catch (error) {
         console.error("Error fetching bookings:", error);
+        toast.error("⚠️ Error fetching bookings.", { position: "top-center" });
       }
     };
     fetchBookings();
@@ -102,8 +108,10 @@ const ServiceBooking = () => {
       setBookings((prev) =>
         prev.map((b) => (b._id === id ? { ...b, status: newStatus } : b))
       );
+      toast.success(`✅ Booking ${newStatus.toUpperCase()}!`, { position: "top-center" });
     } catch (error) {
       console.error("Error updating status:", error);
+      toast.error("❌ Failed to update status.", { position: "top-center" });
     }
   };
 
@@ -112,13 +120,14 @@ const ServiceBooking = () => {
       setSendingOTP(true);
       const res = await axios.post(`${url}/service/booking/send-otp/${booking._id}`);
       if (res.data.success) {
-        alert("OTP sent successfully to customer email!");
+        toast.success("📩 OTP sent successfully to customer!", { position: "top-center" });
         setOtpBooking(booking);
       } else {
-        alert("Failed to send OTP: " + (res.data.message || "Unknown error"));
+        toast.error("❌ Failed to send OTP.", { position: "top-center" });
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
+      toast.error("⚠️ Error sending OTP.", { position: "top-center" });
     } finally {
       setSendingOTP(false);
     }
@@ -131,6 +140,7 @@ const ServiceBooking = () => {
       )
     );
     setOtpBooking(null);
+    toast.success("✅ Booking marked as Completed!", { position: "top-center" });
   };
 
   const toBase64 = (buffer) => {
@@ -152,6 +162,7 @@ const ServiceBooking = () => {
 
   return (
     <div className="bookingPage">
+      <ToastContainer />
       <h2 className="pageTitle">My Bookings</h2>
 
       {bookings.length === 0 ? (
@@ -187,14 +198,14 @@ const ServiceBooking = () => {
 
               <div className="cardBody">
                 <p>
-                  <i class="fa-solid fa-calendar"></i>{" "}
+                  <i className="fa-solid fa-calendar"></i>{" "}
                   {formatDateAndTime(b.customerdate)}
                 </p>
                 <p>
-                  <i class="fa-solid fa-location-dot"></i> {b.customeraddress}
+                  <i className="fa-solid fa-location-dot"></i> {b.customeraddress}
                 </p>
                 <p>
-                  <i class="fa-solid fa-phone"></i> {b.customerphone}
+                  <i className="fa-solid fa-phone"></i> {b.customerphone}
                 </p>
                 <p className="desc" title={b.customerdescription}>
                   “{b.customerdescription || "No description provided."}”

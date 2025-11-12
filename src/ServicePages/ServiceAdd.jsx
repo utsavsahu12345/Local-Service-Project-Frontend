@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // ✅ Missing import
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./ServiceAdd.css";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ServiceAdd = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("");
-    const url = import.meta.env.VITE_SERVER_URL;
+  const url = import.meta.env.VITE_SERVER_URL;
 
   const [form, setForm] = useState({
     username: "",
@@ -29,9 +31,7 @@ const ServiceAdd = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${url}/me`, {
-          withCredentials: true,
-        });
+        const res = await axios.get(`${url}/me`, { withCredentials: true });
         const user = res.data.payload;
         if (user?.username) {
           setUsername(user.username);
@@ -39,8 +39,8 @@ const ServiceAdd = () => {
         }
       } catch (err) {
         console.error("Failed to fetch user:", err);
-        alert("Session expired or not logged in. Please log in again.");
-        navigate("/service/login");
+        toast.error("Session expired. Please log in again.");
+        setTimeout(() => navigate("/service/login"), 2000);
       } finally {
         setLoading(false);
       }
@@ -62,10 +62,9 @@ const ServiceAdd = () => {
     }
   }
 
-  // ✅ Submit form
+  // ✅ Submit form with Toasts
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Submitting:", form);
     try {
       const formData = new FormData();
       Object.entries(form).forEach(([key, value]) => {
@@ -79,7 +78,7 @@ const ServiceAdd = () => {
 
       const data = await res.json();
       if (res.ok) {
-        alert("Service added successfully!");
+        toast.success("✅ Service added successfully!");
         setForm({
           username,
           name: "",
@@ -95,11 +94,11 @@ const ServiceAdd = () => {
           image: null,
         });
       } else {
-        alert("Error: " + data.error);
+        toast.error(`❌ ${data.error || "Failed to add service."}`);
       }
     } catch (err) {
       console.error("Form submission error:", err);
-      alert("Failed to submit service. Try again later.");
+      toast.error("⚠️ Failed to submit service. Try again later.");
     }
   }
 
@@ -110,6 +109,9 @@ const ServiceAdd = () => {
 
   return (
     <>
+      {/* Toasts at the top center */}
+      <ToastContainer position="top-center" autoClose={2500} />
+
       <div className="service-add-container">
         <div className="service-add-card">
           <h2>Add Service</h2>
@@ -162,8 +164,12 @@ const ServiceAdd = () => {
                   <option value="Carpenter">Carpenter</option>
                   <option value="Painter">Painter</option>
                   <option value="AC Mechanic">AC Mechanic</option>
-                  <option value="Refrigerator Repairer">Refrigerator Repairer</option>
-                  <option value="Washing Machine Technician">Washing Machine Technician</option>
+                  <option value="Refrigerator Repairer">
+                    Refrigerator Repairer
+                  </option>
+                  <option value="Washing Machine Technician">
+                    Washing Machine Technician
+                  </option>
                   <option value="RO Service">RO / Water Purifier Service</option>
                   <option value="CCTV Installation">CCTV Installation</option>
                   <option value="Geyser Repair">Geyser Repair</option>
@@ -186,7 +192,7 @@ const ServiceAdd = () => {
                   <option value="Photographer">Photographer</option>
                   <option value="Tutor">Tutor / Teacher</option>
                   <option value="Snake Rescue Team">Snake Rescue Team</option>
-                  <option value="Motor Replacement"> Motor Replacement</option>
+                  <option value="Motor Replacement">Motor Replacement</option>
                 </select>
               </div>
 
@@ -202,7 +208,7 @@ const ServiceAdd = () => {
               </div>
 
               <div className="form-field">
-                <label>Max Price ($)</label>
+                <label>Max Price (₹)</label>
                 <input
                   type="number"
                   name="maxPrice"
@@ -238,7 +244,7 @@ const ServiceAdd = () => {
                 />
               </div>
               <div className="form-field">
-                <label>Visiting Price ($)</label>
+                <label>Visiting Price (₹)</label>
                 <input
                   type="number"
                   name="visitingPrice"
@@ -277,7 +283,10 @@ const ServiceAdd = () => {
                   style={{ display: "none" }}
                   required
                 />
-                <FaCloudUploadAlt size={32} style={{ color: "#aaa", marginBottom: "8px" }} />
+                <FaCloudUploadAlt
+                  size={32}
+                  style={{ color: "#888", marginBottom: "8px" }}
+                />
                 <p className="upload-text">
                   <strong>Choose File</strong> or drag and drop
                 </p>
@@ -287,7 +296,11 @@ const ServiceAdd = () => {
             </div>
 
             <div className="form-actions">
-              <button type="button" className="cancel-btn" onClick={() => navigate(-1)}>
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={() => navigate(-1)}
+              >
                 Cancel
               </button>
               <button type="submit" className="add-service-btn">
