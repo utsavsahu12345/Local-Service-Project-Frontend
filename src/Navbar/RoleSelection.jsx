@@ -1,35 +1,82 @@
+import { useNavigate } from 'react-router-dom';
 import React, { useRef } from "react";
 import "../Navbar/RoleSelection.css";
-import { Link } from "react-router-dom";
 
-const Icon = ({ children }) => <div className="iconplaceholder">{children}</div>;
+const Icon = ({ children }) => (
+  <div className="iconplaceholder">{children}</div>
+);
 const Star = () => <span style={{ color: "#ffc107" }}>★</span>;
 
 const App = () => {
+  const navigate = useNavigate();
   const roleRef = useRef(null);
 
-  const handleScrollToRoles = () => {
-    roleRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const popularServices = [
-    { icon: "🧹", title: "Cleaning", description: "Keep your home sparkling clean." },
-    { icon: "💧", title: "Plumbing", description: "Fix leaks and clogs with ease." },
-    { icon: "🎨", title: "Painting", description: "Refresh your space with a new coat." },
-    { icon: "⚡", title: "Electrician", description: "Safe and reliable electrical services." },
-    { icon: "🌿", title: "Gardening", description: "Transform your outdoor space." },
+    {
+      icon: "🧹",
+      title: "Cleaning",
+      description: "Keep your home sparkling clean.",
+    },
+    {
+      icon: "💧",
+      title: "Plumbing",
+      description: "Fix leaks and clogs with ease.",
+    },
+    {
+      icon: "🎨",
+      title: "Painting",
+      description: "Refresh your space with a new coat.",
+    },
+    {
+      icon: "⚡",
+      title: "Electrician",
+      description: "Safe and reliable electrical services.",
+    },
+    {
+      icon: "🌿",
+      title: "Gardening",
+      description: "Transform your outdoor space.",
+    },
   ];
 
   const howItWorks = [
-    { number: 1, title: "Choose Your Service", description: "Select from a wide range of home services." },
-    { number: 2, title: "Select a Provider", description: "Browse profiles, ratings, and reviews to find the perfect fit." },
-    { number: 3, title: "Sit Back & Relax", description: "A verified professional will arrive to get the job done." },
+    {
+      number: 1,
+      title: "Choose Your Service",
+      description: "Select from a wide range of home services.",
+    },
+    {
+      number: 2,
+      title: "Select a Provider",
+      description:
+        "Browse profiles, ratings, and reviews to find the perfect fit.",
+    },
+    {
+      number: 3,
+      title: "Sit Back & Relax",
+      description: "A verified professional will arrive to get the job done.",
+    },
   ];
 
   const testimonials = [
-    { name: "Sarah J.", rating: 5, review: "Fantastic service! Highly recommend ServicePro.", avatar: "SJ" },
-    { name: "Michael B.", rating: 5, review: "Used ServicePro for house cleaning — excellent job!", avatar: "MB" },
-    { name: "Emily K.", rating: 5, review: "Very professional and reliable electrician service.", avatar: "EK" },
+    {
+      name: "Sarah J.",
+      rating: 5,
+      review: "Fantastic service! Highly recommend ServicePro.",
+      avatar: "SJ",
+    },
+    {
+      name: "Michael B.",
+      rating: 5,
+      review: "Used ServicePro for house cleaning — excellent job!",
+      avatar: "MB",
+    },
+    {
+      name: "Emily K.",
+      rating: 5,
+      review: "Very professional and reliable electrician service.",
+      avatar: "EK",
+    },
   ];
 
   return (
@@ -39,12 +86,13 @@ const App = () => {
         <div className="herosection">
           <h1>Find Trusted Local Experts Near You</h1>
           <p className="herosubtitle">
-            We connect you with the best local professionals for any job, big or small.
+            We connect you with the best local professionals for any job, big or
+            small.
           </p>
-          <button onClick={handleScrollToRoles}>Get Started</button>
+          <button onClick={() => navigate("/signup")}>Get Started</button>
         </div>
       </header>
-      
+
       {/* --- Popular Services --- */}
       <section className="section popularservices">
         <h2 className="popular">Popular Services</h2>
@@ -84,7 +132,9 @@ const App = () => {
                 <div>
                   <span className="customername">{t.name}</span>
                   <div className="rating">
-                    {[...Array(t.rating)].map((_, j) => <Star key={j} />)}
+                    {[...Array(t.rating)].map((_, j) => (
+                      <Star key={j} />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -103,12 +153,12 @@ const App = () => {
 
       {/* --- Footer --- */}
       <footer className="contact-footer">
-          <div>© 2025 Local Service. All rights reserved.</div>
-          <div className="footer-a">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-          </div>
-        </footer>
+        <div>© 2025 Local Service. All rights reserved.</div>
+        <div className="footer-a">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </footer>
     </div>
   );
 };
