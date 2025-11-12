@@ -30,19 +30,12 @@ export default function Login() {
       });
 
       setSuccess(res.data.message || "Login successful!");
-
-      // ✅ Role comes from backend response
       const userRole = res.data.role;
 
-      if (userRole === "Admin") {
-        navigate("/admin/dashboard");
-      } else if (userRole === "Customer") {
-        navigate("/customer/home");
-      } else if (userRole === "Service Provider") {
-        navigate("/service/dashboard");
-      } else {
-        navigate("/");
-      }
+      if (userRole === "Admin") navigate("/admin/dashboard");
+      else if (userRole === "Customer") navigate("/customer/home");
+      else if (userRole === "Service Provider") navigate("/service/dashboard");
+      else navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Invalid credentials");
     } finally {
@@ -52,16 +45,16 @@ export default function Login() {
 
   return (
     <>
-      <div className="login-container">
-        <div className="login-card">
-          <h2>Welcome Back 👋</h2>
-          <p className="subtitle">Login with your Username or Email</p>
+      <div className="loginWrapper">
+        <div className="loginGlassCard">
+          <h2 className="loginTitle">Welcome Back 👋</h2>
+          <p className="loginSubtitle">Login with your username or email</p>
 
-          {error && <p className="error">{error}</p>}
-          {success && <p className="success">{success}</p>}
+          {error && <p className="loginError">{error}</p>}
+          {success && <p className="loginSuccess">{success}</p>}
 
           <form onSubmit={handleSubmit}>
-            <div className="input-group">
+            <div className="inputGroup">
               <label>Username or Email</label>
               <input
                 type="text"
@@ -73,7 +66,7 @@ export default function Login() {
               />
             </div>
 
-            <div className="input-group">
+            <div className="inputGroup">
               <label>Password</label>
               <input
                 type="password"
@@ -85,45 +78,54 @@ export default function Login() {
               />
             </div>
 
-            <button type="submit" className="login-btn" disabled={loading}>
+            <button type="submit" className="loginBtn" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </button>
           </form>
 
-          <p className="footer-text">
+          <p className="footerText">
             Don’t have an account? <Link to="/signup">Sign up</Link>
           </p>
         </div>
       </div>
 
-      {/* ==== Inline CSS ==== */}
+      {/* ==== Premium Glassmorphic CSS ==== */}
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
         * {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
         }
 
-        body, html, .login-container {
-          height: 100vh;
-          width: 100%;
-          font-family: "Poppins", sans-serif;
-          background: linear-gradient(135deg, #d0e2ff, #f8faff);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          overflow: hidden;
+        body, html {
+          height: 100%;
+          font-family: 'Inter', sans-serif;
+          background: #0f172a;
         }
 
-        .login-card {
-          background: #ffffff;
-          padding: 2.8rem 2.4rem;
-          border-radius: 16px;
-          box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
-          width: 370px;
+        .loginWrapper {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #2e026d, #15162c);
+          padding: 20px;
+        }
+
+        .loginGlassCard {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(15px);
+          border-radius: 20px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+          width: 100%;
+          max-width: 400px;
+          padding: 2.5rem 2rem;
+          color: #f8fafc;
+          animation: fadeIn 0.7s ease-in-out;
           text-align: center;
-          transition: all 0.3s ease;
-          animation: fadeIn 0.6s ease;
         }
 
         @keyframes fadeIn {
@@ -131,102 +133,114 @@ export default function Login() {
           to { opacity: 1; transform: translateY(0); }
         }
 
-        h2 {
-          color: #2b2d42;
-          font-size: 1.9rem;
+        .loginTitle {
+          font-size: 2rem;
+          font-weight: 600;
+          color: #fff;
           margin-bottom: 0.5rem;
         }
 
-        .subtitle {
-          color: #6c757d;
+        .loginSubtitle {
+          color: #cbd5e1;
           font-size: 0.95rem;
-          margin-bottom: 1.8rem;
+          margin-bottom: 2rem;
         }
 
-        .input-group {
-          margin-bottom: 1.3rem;
+        .inputGroup {
           text-align: left;
+          margin-bottom: 1.3rem;
         }
 
         label {
           display: block;
-          margin-bottom: 0.35rem;
-          color: #495057;
+          margin-bottom: 0.4rem;
+          color: #e2e8f0;
           font-weight: 500;
+          font-size: 0.95rem;
         }
 
         input {
           width: 100%;
-          padding: 0.75rem;
-          border: 1px solid #ced4da;
-          border-radius: 8px;
+          padding: 0.75rem 0.9rem;
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          background: rgba(255, 255, 255, 0.07);
+          color: #f1f5f9;
           font-size: 1rem;
-          outline: none;
-          transition: all 0.3s ease;
-          background: #f8f9fa;
-        }
-
-        input:focus {
-          border-color: #007bff;
-          background: #fff;
-          box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-        }
-
-        .login-btn {
-          width: 100%;
-          padding: 0.85rem;
-          background: #007bff;
-          border: none;
-          border-radius: 8px;
-          color: white;
-          font-size: 1.1rem;
-          font-weight: 600;
-          cursor: pointer;
-          margin-top: 0.5rem;
           transition: 0.3s ease;
         }
 
-        .login-btn:hover {
-          background: #0056b3;
+        input::placeholder {
+          color: #94a3b8;
         }
 
-        .error, .success {
+        input:focus {
+          border-color: #818cf8;
+          background: rgba(255, 255, 255, 0.15);
+          outline: none;
+        }
+
+        .loginBtn {
+          width: 100%;
+          padding: 0.9rem;
+          border: none;
+          border-radius: 12px;
+          font-size: 1rem;
+          font-weight: 600;
+          background: linear-gradient(90deg, #6366f1, #8b5cf6);
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-top: 0.5rem;
+        }
+
+        .loginBtn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+        }
+
+        .loginBtn:disabled {
+          background: #475569;
+          cursor: not-allowed;
+        }
+
+        .loginError, .loginSuccess {
           padding: 0.7rem;
-          border-radius: 8px;
+          border-radius: 10px;
           font-size: 0.9rem;
           margin-bottom: 1rem;
         }
 
-        .error {
-          background: #ffe5e5;
-          color: #d9534f;
+        .loginError {
+          background: rgba(255, 100, 100, 0.15);
+          color: #fca5a5;
+          border: 1px solid rgba(255, 100, 100, 0.3);
         }
 
-        .success {
-          background: #e6ffea;
-          color: #28a745;
+        .loginSuccess {
+          background: rgba(34, 197, 94, 0.15);
+          color: #86efac;
+          border: 1px solid rgba(34, 197, 94, 0.3);
         }
 
-        .footer-text {
-          margin-top: 1.4rem;
-          color: #6c757d;
+        .footerText {
+          margin-top: 1.5rem;
           font-size: 0.9rem;
+          color: #a5b4fc;
         }
 
-        .footer-text a {
-          color: #007bff;
-          text-decoration: none;
+        .footerText a {
+          color: #fff;
+          text-decoration: underline;
           font-weight: 600;
         }
 
-        .footer-text a:hover {
-          text-decoration: underline;
-        }
-
-        @media (max-width: 450px) {
-          .login-card {
-            width: 90%;
-            padding: 2rem;
+        @media (max-width: 480px) {
+          .loginGlassCard {
+            padding: 2rem 1.4rem;
+          }
+          .loginTitle {
+            font-size: 1.7rem;
           }
         }
       `}</style>
