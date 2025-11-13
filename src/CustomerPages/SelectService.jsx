@@ -184,7 +184,7 @@ const SelectService = () => {
                   </span>
                 </div>
                 <div style={{ color: "#666", fontSize: 16, marginBottom: 8 }}>
-                  📍 {service.location}
+                   {service.location}
                 </div>
                 <div
                   style={{
